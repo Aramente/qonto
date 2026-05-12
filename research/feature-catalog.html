@@ -352,7 +352,7 @@ function featurePasses(f) {
   }
   if (ui.search) {
     const q = ui.search.toLowerCase();
-    const hay = (f.name + ' ' + f.description + ' ' + f.id + ' ' + (f.inspiration || []).join(' ')).toLowerCase();
+    const hay = (f.name + ' ' + f.description + ' ' + f.id).toLowerCase();
     if (!hay.includes(q)) return false;
   }
   return true;
@@ -368,9 +368,7 @@ function featureCard(f) {
                 : status === 'not-now' ? 'feature-card rejected-not-now'
                 : 'feature-card';
 
-  const inspirationLine = (f.inspiration && f.inspiration.length)
-    ? `<div class="source-row">Inspired by: ${f.inspiration.slice(0,3).map(escapeHtml).join(' · ')}${f.inspiration.length > 3 ? ` · +${f.inspiration.length - 3}` : ''}</div>`
-    : '';
+  const inspirationLine = '';
 
   const rejectControls = status === 'active'
     ? `<div class="reject-cluster">
