@@ -2210,6 +2210,959 @@
       "complexity": "M",
       "poc_fit": false,
       "trust_pattern": "Scripts authored by HR. LLM only adapts to the report's context, not the verdict."
+    },
+    {
+      "id": "cf-theme-as-entity",
+      "name": "Themes (Lattice-style grouping)",
+      "description": "Group competencies under themes (Impact / Behaviors / Functional). Theme is a first-class entity, not a label.",
+      "primary_user": "hr",
+      "surface": "career-framework",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Lattice Grow"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "Schema-level entity. UI shows themes as colored groupings; admin renames in one place."
+    },
+    {
+      "id": "cf-job-family",
+      "name": "Job family separate from track",
+      "description": "Backend / Frontend / Infra (job families) reuse IC + Mgr tracks — GitLab pattern. No ladder duplication per role.",
+      "primary_user": "hr",
+      "surface": "career-framework",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "GitLab handbook"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Many-to-many. Switching job families is cheap."
+    },
+    {
+      "id": "cf-anchor-behaviors",
+      "name": "Anchor behaviors as searchable arrays",
+      "description": "Each level × competency cell carries explicit anchor behaviors (concrete examples), stored as arrays — searchable across cohorts.",
+      "primary_user": "hr",
+      "surface": "career-framework",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "retrieve",
+      "inspiration": [
+        "Square",
+        "Khan Academy"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Anchors are data. Search returns evidence; HR draws conclusions."
+    },
+    {
+      "id": "cf-idp-authoring",
+      "name": "Individual Development Plan authoring",
+      "description": "Each Qontoer co-authors an IDP with their manager: 2–3 dimensions to grow this half + the concrete actions + the support needed.",
+      "primary_user": "employee",
+      "surface": "career-framework",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "draft",
+      "inspiration": [
+        "Lattice Grow IDP",
+        "Notion templates"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Co-authored. Employee can edit anytime. Manager sees but doesn't unilaterally change."
+    },
+    {
+      "id": "comp-multi-component",
+      "name": "Multi-component compensation model",
+      "description": "Track base + bonus + equity + variable as four linked components per Qontoer. Total comp visible; component-level history visible; band attached to each.",
+      "primary_user": "hr",
+      "surface": "comp-planning",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Pave",
+        "Ravio",
+        "Compa"
+      ],
+      "complexity": "L",
+      "poc_fit": false,
+      "trust_pattern": "Each component has its own audit trail. Aggregates are derived, not stored."
+    },
+    {
+      "id": "comp-geographic-differentials",
+      "name": "Geographic comp differentials",
+      "description": "Cost-of-labor adjustment per location across the 8 markets. Manager sees the location-adjusted band before typing a number.",
+      "primary_user": "manager",
+      "surface": "comp-planning",
+      "help_mode": "manager-does-job",
+      "ai_mode": "retrieve",
+      "inspiration": [
+        "Ravio market data",
+        "Figures benchmark"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Differentials configured by People team. Source benchmark and effective date visible."
+    },
+    {
+      "id": "comp-equity-refresh-grant",
+      "name": "Equity refresh grant model",
+      "description": "Per-Qontoer BSPCE/RSU refresh proposal flow: target ownership % × tenure × performance signal × promotion. Manager proposes, HRBP + comp committee sign-off.",
+      "primary_user": "manager",
+      "surface": "comp-planning",
+      "help_mode": "manager-does-job",
+      "ai_mode": "none",
+      "inspiration": [
+        "Pave equity workflows"
+      ],
+      "complexity": "L",
+      "poc_fit": false,
+      "trust_pattern": "Target % visible. Each refresh links to its rationale. Vesting schedule explicit in the letter."
+    },
+    {
+      "id": "comp-promotion-workflow",
+      "name": "Promotion workflow linked to comp",
+      "description": "Level change → automatic band lookup → required override-or-accept on comp delta. Closes the gap between 'I'm now L5' and 'my pay reflects it.'",
+      "primary_user": "hr",
+      "surface": "comp-planning",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Pave promo cases",
+        "gap in OSS"
+      ],
+      "complexity": "L",
+      "poc_fit": false,
+      "trust_pattern": "Level change can't be saved without a comp decision. Both halves audit together."
+    },
+    {
+      "id": "comp-off-cycle-adjustments",
+      "name": "Off-cycle comp adjustments",
+      "description": "Mid-year market correction, retention bump, promotion outside cycle — tracked as a distinct campaign type so they don't pollute the cycle envelope.",
+      "primary_user": "hr",
+      "surface": "comp-planning",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Figures",
+        "Lucca"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Different campaign type, different budget, same approval discipline."
+    },
+    {
+      "id": "comp-budget-gates",
+      "name": "Approval-chain budget gates",
+      "description": "Each approver level has a budget cap. Crossing it auto-escalates to the next approver. Visible to the proposer before submitting.",
+      "primary_user": "hr",
+      "surface": "comp-planning",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Figures",
+        "gap in OSS"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Caps visible to proposers. Escalation reasons logged."
+    },
+    {
+      "id": "comp-band-master-table",
+      "name": "Salary band master table",
+      "description": "(level × role × geography × currency) → (min, mid, max) with effective dates. The spine of every comp calc.",
+      "primary_user": "hr",
+      "surface": "comp-planning",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "raise-calculator",
+        "comp-calc",
+        "universal"
+      ],
+      "complexity": "M",
+      "poc_fit": true,
+      "trust_pattern": "Versioned. Changes don't retroactively re-rate past decisions."
+    },
+    {
+      "id": "comp-band-versioning",
+      "name": "Band versioning + history",
+      "description": "Each band update creates a new version with effective date. Historical bands queryable. Past decisions show 'made against band v2026.1.'",
+      "primary_user": "hr",
+      "surface": "comp-planning",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "GitLab versioned handbook"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Audit trail anchored to band versions. Comparison view across versions."
+    },
+    {
+      "id": "comp-letter-i18n",
+      "name": "Comp letter in Qontoer's language",
+      "description": "Letter drafted in the system's lingua franca (EN), then offered in the Qontoer's preferred language with a side-by-side review by the manager.",
+      "primary_user": "employee",
+      "surface": "comp-letter",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "translate",
+      "inspiration": [
+        "Lucca multilingual",
+        "Deel localization"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Manager confirms the translation. Both languages stored. Legal text is country-specific, not translated."
+    },
+    {
+      "id": "comp-letter-pdf-export",
+      "name": "Comp letter PDF export",
+      "description": "Generate a Qonto-branded PDF of the letter, with structured numbers + manager note + appendix listing every cited piece of evidence.",
+      "primary_user": "manager",
+      "surface": "comp-letter",
+      "help_mode": "manager-does-job",
+      "ai_mode": "none",
+      "inspiration": [
+        "Pave Visual Offer Letter",
+        "Lucca"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "PDF is canonical artifact. In-app view stays editable until the letter is signed."
+    },
+    {
+      "id": "calibration-auto-triage",
+      "name": "Auto-triage: who needs discussion",
+      "description": "Surfaces ~15–20% of Qontoers whose ratings warrant calibration discussion (outliers, rater pattern, source disagreement). Compresses 4-hour meetings into 90 min.",
+      "primary_user": "hr",
+      "surface": "calibration",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "aggregate",
+      "inspiration": [
+        "Confirm AI auto-triage"
+      ],
+      "complexity": "L",
+      "poc_fit": false,
+      "trust_pattern": "Triage is a filter, not a verdict. Manager sees the criteria; can manually add/remove."
+    },
+    {
+      "id": "calibration-named-bias-flags",
+      "name": "Named bias flags with evidence",
+      "description": "When the system flags recency / affinity / visibility bias, it always shows the triggering evidence inline. Manager can dismiss with reason.",
+      "primary_user": "manager",
+      "surface": "calibration",
+      "help_mode": "manager-does-job",
+      "ai_mode": "aggregate",
+      "inspiration": [
+        "Confirm ONA-backed flags"
+      ],
+      "complexity": "L",
+      "poc_fit": false,
+      "trust_pattern": "Pattern-level. Evidence is visible; verdict isn't."
+    },
+    {
+      "id": "calibration-9box-switchable",
+      "name": "9-box ↔ table switchable view",
+      "description": "Same data, two views: 9-box for spatial reasoning, table for detail. Switch is a toggle; filters and selections persist across views.",
+      "primary_user": "manager",
+      "surface": "calibration",
+      "help_mode": "manager-does-job",
+      "ai_mode": "none",
+      "inspiration": [
+        "Lattice",
+        "15Five"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "View is presentation. Underlying data is identical and editable from either side."
+    },
+    {
+      "id": "calibration-bulk-csv",
+      "name": "Calibration bulk CSV import/export",
+      "description": "Admins can pull a CSV of the current calibration state, edit offline, re-import with diff preview before applying.",
+      "primary_user": "hr",
+      "surface": "calibration",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Workday",
+        "Lattice"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Diff preview shows every change before commit. Conflict resolution per row."
+    },
+    {
+      "id": "calibration-snapshot-export",
+      "name": "Calibration snapshot at lock",
+      "description": "At lock, the system freezes a full snapshot of every rating + position + comment. Restorable. Required artifact for burden-of-proof.",
+      "primary_user": "hr",
+      "surface": "calibration",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Frappe submittable pattern"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Snapshot is immutable. Distinct from the live document; both are queryable."
+    },
+    {
+      "id": "cycle-status-state-machine",
+      "name": "Cycle status state machine",
+      "description": "Cycles move through Draft → Open → Self-review → Manager-review → Calibration → Locked → Letters. Each transition is logged with timestamp and trigger.",
+      "primary_user": "hr",
+      "surface": "cycle-admin",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Frappe HRMS Appraisal Cycle status"
+      ],
+      "complexity": "M",
+      "poc_fit": true,
+      "trust_pattern": "State transitions visible to all participants. Reverting requires HRBP confirmation."
+    },
+    {
+      "id": "cycle-filter-materialize",
+      "name": "Filter-then-materialize population",
+      "description": "Set department/role/tenure filters, hit a button, system snapshots the population. New hires mid-cycle don't auto-appear.",
+      "primary_user": "hr",
+      "surface": "cycle-admin",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Frappe HRMS Appraisee table"
+      ],
+      "complexity": "S",
+      "poc_fit": true,
+      "trust_pattern": "Snapshot is the cohort. Manual add/remove explicit and logged."
+    },
+    {
+      "id": "cycle-mid-cycle-population",
+      "name": "Mid-cycle population adjustment",
+      "description": "Add a Qontoer who joined after launch, remove someone leaving — without resetting progress for the rest. Banner explains who was affected.",
+      "primary_user": "hr",
+      "surface": "cycle-admin",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Lattice mid-cycle adjust"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Affected population sees a banner; HR sees the audit row."
+    },
+    {
+      "id": "cycle-template-versioning",
+      "name": "Cycle template versioning",
+      "description": "Templates have versions. Cycle uses a specific template version at launch and stays on it; changes after launch are version-bumped and don't apply retroactively.",
+      "primary_user": "hr",
+      "surface": "cycle-admin",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "GitLab handbook versioning"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Past cycles always queryable in the form they used."
+    },
+    {
+      "id": "cycle-reminder-cadence",
+      "name": "Escalating reminder cadence",
+      "description": "Gentle ping → CC manager → HRBP-aware nudge. Cadence configured per campaign; visible to all parties so it doesn't feel hostile.",
+      "primary_user": "hr",
+      "surface": "cycle-admin",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Lucca",
+        "Lattice"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "Cadence is published before launch. Recipients see where they are in the escalation."
+    },
+    {
+      "id": "cycle-skip-level-mode",
+      "name": "Skip-level review mode",
+      "description": "Optional skip-level review: manager+1 provides feedback before final review goes to Qontoer. Toggleable per cycle.",
+      "primary_user": "hr",
+      "surface": "cycle-admin",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "common large-co pattern"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Visible to all parties. Skip-level edits show as a distinct contributor in the audit log."
+    },
+    {
+      "id": "notification-cadence-config",
+      "name": "Configurable notification cadence",
+      "description": "Each role × event has a notification preference: email / in-app / both / none. Per-Qontoer overrides allowed within limits.",
+      "primary_user": "hr",
+      "surface": "cross-cutting",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Lattice",
+        "Personio"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "Mandatory notifications (legal) can't be turned off; everything else can."
+    },
+    {
+      "id": "notification-i18n",
+      "name": "Per-Qontoer language for system messages",
+      "description": "Every Qontoer picks their preferred system language (FR / DE / IT / ES / PT / NL / EN). Persists across the product, including AI drafts.",
+      "primary_user": "employee",
+      "surface": "cross-cutting",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "translate",
+      "inspiration": [
+        "Personio",
+        "Lucca"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "User-chosen, persisted. Manager sees a 'translated for you' badge if language differs."
+    },
+    {
+      "id": "mobile-reviewing",
+      "name": "Mobile-aware review writing",
+      "description": "Managers reviewing on a phone get a compact draft mode with one-section-per-screen, evidence drawer collapsible, auto-save aggressive.",
+      "primary_user": "manager",
+      "surface": "cross-cutting",
+      "help_mode": "manager-does-job",
+      "ai_mode": "none",
+      "inspiration": [
+        "Lattice mobile",
+        "HiBob mobile"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Same data model. Reviewer sees a banner if they're on mobile; can switch to desktop at any time."
+    },
+    {
+      "id": "webhook-events",
+      "name": "Webhook events for audit",
+      "description": "Outbound webhooks fire on every significant event (review submitted, rating changed, comp approved). For SIEM / external audit integration.",
+      "primary_user": "hr",
+      "surface": "cross-cutting",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "GitHub Audit Log",
+        "Stripe events"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "Payloads signed. Failed deliveries retried with backoff."
+    },
+    {
+      "id": "sso-saml-scim",
+      "name": "SSO + SCIM provisioning",
+      "description": "SAML SSO with the company IdP. SCIM provisioning so org chart changes propagate without HR action.",
+      "primary_user": "hr",
+      "surface": "cross-cutting",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Okta",
+        "Workday HRIS"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Identity comes from one source. Deprovisioning is automatic."
+    },
+    {
+      "id": "data-export-on-leave",
+      "name": "Auto-export on departure",
+      "description": "When a Qontoer leaves, generate their full file (reviews, feedback, comp history, AI artifacts) as a portable archive for them — GDPR portability built in.",
+      "primary_user": "employee",
+      "surface": "compliance",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "none",
+      "inspiration": [
+        "GDPR Art. 20"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Export is the Qontoer's right. Triggered automatically; delivered before last day."
+    },
+    {
+      "id": "self-review-prior-feedback",
+      "name": "Prior-cycle feedback recall",
+      "description": "While writing this self-review, see the feedback you received last cycle — what you committed to, what changed, what's still open.",
+      "primary_user": "employee",
+      "surface": "self-review",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "retrieve",
+      "inspiration": [
+        "Lattice",
+        "Mem AI"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "Pulls from your own historical file. Inert; you choose what to cite."
+    },
+    {
+      "id": "self-review-prior-submission",
+      "name": "Prior self-review side-by-side",
+      "description": "Your last self-review pinned beside the new one. Forces 'what's changed' framing without anyone telling you.",
+      "primary_user": "employee",
+      "surface": "self-review",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "retrieve",
+      "inspiration": [
+        "Culture Amp multi-cycle"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "Read-only pane. No comparison metrics; just the text."
+    },
+    {
+      "id": "goal-progress-import",
+      "name": "Goal progress auto-import",
+      "description": "Closed and in-progress goals auto-populate the 'what did I ship' section with status, owner, dates. Edit, cite, or remove.",
+      "primary_user": "employee",
+      "surface": "self-review",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "retrieve",
+      "inspiration": [
+        "Lattice Goals integration"
+      ],
+      "complexity": "S",
+      "poc_fit": true,
+      "trust_pattern": "Pulled from your goal data. Source row visible inline."
+    },
+    {
+      "id": "calibration-cohort-snapshot",
+      "name": "Calibration cohort snapshot",
+      "description": "For talent reviews, a static snapshot of the cohort at a moment in time — visible side-by-side with the live state. Tracks drift through the cycle.",
+      "primary_user": "hr",
+      "surface": "calibration",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Frappe submittable + amend"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Snapshot is named and dated. Diff visible at any point."
+    },
+    {
+      "id": "cycle-dry-run",
+      "name": "Cycle dry-run with sandbox Qontoers",
+      "description": "Before launch, run the cycle against 1–3 fake Qontoers to verify every screen, email, and approval path. Saves day-1 fires.",
+      "primary_user": "hr",
+      "surface": "cycle-admin",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Figures sandbox mode"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Sandbox state is clearly marked. Real Qontoers never see it."
+    },
+    {
+      "id": "appraisal-submittable",
+      "name": "Submittable appraisal (lock + amend)",
+      "description": "Once an appraisal is submitted, it's immutable. Edits create amendments linked to the original. Free audit history without a separate table.",
+      "primary_user": "hr",
+      "surface": "cross-cutting",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Frappe HRMS is_submittable + amended_from"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Lock is meaningful. Amendments are first-class, not 'edits that vanish.'"
+    },
+    {
+      "id": "three-pillar-evidence-sleeves",
+      "name": "Three-pillar evidence sleeves",
+      "description": "Every piece of cited evidence gets a small chip tagging which pillar it speaks to (Boost / Catalyze / Build). At submit, you see if your story leans on one pillar at the expense of the others.",
+      "primary_user": "employee",
+      "surface": "self-review",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "synthesize",
+      "inspiration": [
+        "Qonto Way framing — original"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Tags are suggestions. Qontoer reassigns; the pillar count is for self-reflection, not for HR."
+    },
+    {
+      "id": "salary-grid-hover-explainer",
+      "name": "Salary-grid hover provenance",
+      "description": "Hover any salary number anywhere in the product to see how it was computed: band version, position-in-band, last decision date, market benchmark source. Decision provenance is always one hover away.",
+      "primary_user": "manager",
+      "surface": "comp-planning",
+      "help_mode": "manager-does-job",
+      "ai_mode": "retrieve",
+      "inspiration": [
+        "Datadog cardinality breakdown, Stripe explorers"
+      ],
+      "complexity": "S",
+      "poc_fit": true,
+      "trust_pattern": "Numbers carry their derivation. No black-box compa-ratios."
+    },
+    {
+      "id": "andon-moment-capture",
+      "name": "Andon-moment capture",
+      "description": "Generalizes the andon pattern: any Qontoer or manager can log a notable moment (good or hard) with date, witnesses, evidence link, value-tag. Year-round bank that auto-surfaces in the next self-review.",
+      "primary_user": "employee",
+      "surface": "evidence-layer",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "none",
+      "inspiration": [
+        "Steve Anavi andon writing",
+        "Toyota Production System"
+      ],
+      "complexity": "M",
+      "poc_fit": true,
+      "trust_pattern": "Owner-controlled. Visibility is per-moment (private / shared with manager / shared with team)."
+    },
+    {
+      "id": "manager-fluency-check",
+      "name": "Manager fluency check",
+      "description": "Before submit, the review form shows the level criteria once more beside your draft and asks 'does your narrative justify this level?' Pure scaffolding — no scoring, no green light required to send.",
+      "primary_user": "manager",
+      "surface": "manager-review",
+      "help_mode": "manager-does-job",
+      "ai_mode": "retrieve",
+      "inspiration": [
+        "Reframe of competency reference panel"
+      ],
+      "complexity": "S",
+      "poc_fit": true,
+      "trust_pattern": "Question, not a gate. Skippable. Never tells the manager they're wrong."
+    },
+    {
+      "id": "calibration-time-machine",
+      "name": "Calibration cohort time-machine",
+      "description": "At any moment during calibration, see 'if we locked now, this is the distribution' and compare to 'if we locked 2h ago.' Helps the facilitator notice convergence vs. oscillation.",
+      "primary_user": "hr",
+      "surface": "calibration",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "aggregate",
+      "inspiration": [
+        "git reflog",
+        "Figma version history"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "View-only. Lock state is unchanged. Useful for facilitator self-awareness."
+    },
+    {
+      "id": "my-evidence-trail",
+      "name": "My evidence trail (year-round)",
+      "description": "Persistent year-round dashboard for every Qontoer: kudos received, goals closed, 1:1 commitments delivered, framework dimensions touched. Pre-review writing fuel.",
+      "primary_user": "employee",
+      "surface": "evidence-layer",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "retrieve",
+      "inspiration": [
+        "Linear cycle review × Glean × Lattice Pulse"
+      ],
+      "complexity": "M",
+      "poc_fit": true,
+      "trust_pattern": "Private. Qontoer-owned. Not aggregated for managers; just for their own self-narrative."
+    },
+    {
+      "id": "competency-coverage-heatmap",
+      "name": "Personal competency-coverage heatmap",
+      "description": "Map of which framework dimensions you actually accumulated evidence for this cycle. Bare cells = areas you didn't get visible work in. Honest self-assessment fuel; never seen by manager unless you share.",
+      "primary_user": "employee",
+      "surface": "career-framework",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "aggregate",
+      "inspiration": [
+        "Notion Habit trackers reframed"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Private by default. Toggle a cell to 'share with manager' if you want career conversation."
+    },
+    {
+      "id": "reciprocal-feedback-nudge",
+      "name": "Reciprocal peer-feedback nudge",
+      "description": "When peer A submits feedback for B, the system optionally asks A 'want to invite B to give you feedback too?' Inverts the asymmetric default into mutual learning.",
+      "primary_user": "peer",
+      "surface": "peer-feedback",
+      "help_mode": "peer-contributes",
+      "ai_mode": "none",
+      "inspiration": [
+        "Reframe of asymmetric peer-review default"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "Optional. Either party can decline. Reciprocation is invited, never expected."
+    },
+    {
+      "id": "manager-signed-letter",
+      "name": "Manager-signed comp letter",
+      "description": "Comp letters always carry the manager's name as author + a hand-typed personal note. PDFs render with the manager's signature line. AI never signs.",
+      "primary_user": "manager",
+      "surface": "comp-letter",
+      "help_mode": "manager-does-job",
+      "ai_mode": "none",
+      "inspiration": [
+        "EU AI Act named-human-accountability"
+      ],
+      "complexity": "S",
+      "poc_fit": true,
+      "trust_pattern": "Cannot generate-and-send. Manager owns the signature line. Compliance-mandated."
+    },
+    {
+      "id": "calibration-parking-lot",
+      "name": "Calibration disagreement parking lot",
+      "description": "Disagreements that can't be resolved in-session move to a parking lot for follow-up, with owner and follow-up date. Tracks time-to-resolution. Avoids forced consensus.",
+      "primary_user": "hr",
+      "surface": "calibration",
+      "help_mode": "hr-sees-patterns",
+      "ai_mode": "none",
+      "inspiration": [
+        "Retrospective parking lot pattern"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "Open items visible to participants. Resolution requires named owner."
+    },
+    {
+      "id": "high-stakes-rationale-prompt",
+      "name": "High-stakes rationale prompt",
+      "description": "Any field change >10% comp, or 1+ level moves, prompts a one-line reason that auto-pre-fills the comp letter rationale. Friction proportional to stakes.",
+      "primary_user": "manager",
+      "surface": "comp-planning",
+      "help_mode": "manager-does-job",
+      "ai_mode": "draft",
+      "inspiration": [
+        "EU PT burden-of-proof reversal × UX gradient"
+      ],
+      "complexity": "S",
+      "poc_fit": true,
+      "trust_pattern": "Reason is captured once, used twice (decision audit + comp letter). Manager edits before send."
+    },
+    {
+      "id": "idp-silence-detector",
+      "name": "IDP silence detector (private)",
+      "description": "If your IDP hasn't been touched in 2 weeks during a cycle, your private dashboard shows a soft prompt. Your manager never sees this — it's purely for you.",
+      "primary_user": "employee",
+      "surface": "career-framework",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "none",
+      "inspiration": [
+        "Streak inversion: nudge, never report"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "Private surface. No public streak, no manager visibility, no consequence."
+    },
+    {
+      "id": "moment-based-feedback-request",
+      "name": "Moment-based feedback request",
+      "description": "When someone closes a goal you collaborated on, you can request peer feedback tied to that specific moment — not 'how did X do this half.' Drops the 6-month-blackout problem.",
+      "primary_user": "employee",
+      "surface": "peer-feedback",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "retrieve",
+      "inspiration": [
+        "Continuous feedback reframe"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Request cites the moment so the peer can write fresh. Optional anonymity."
+    },
+    {
+      "id": "manager-overlay-radar",
+      "name": "Manager overlay on report's radar",
+      "description": "When viewing a direct report's competency radar, the manager's own radar overlays faintly. Surfaces where the manager could pair-coach from their own strengths.",
+      "primary_user": "manager",
+      "surface": "career-framework",
+      "help_mode": "manager-does-job",
+      "ai_mode": "retrieve",
+      "inspiration": [
+        "Strengths-based pair-coaching"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Visible only to the manager; report sees their own radar alone."
+    },
+    {
+      "id": "override-self-calibration",
+      "name": "\"What did I almost reject?\" delta",
+      "description": "At end of comp cycle, manager sees a private retrospective: which override decisions were within X% of the system recommendation. Self-calibration aid.",
+      "primary_user": "manager",
+      "surface": "comp-planning",
+      "help_mode": "manager-does-job",
+      "ai_mode": "aggregate",
+      "inspiration": [
+        "Honest retrospective for review-makers"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Private to the manager. Never visible to HRBP or comp committee. Goal is reflection, not policing."
+    },
+    {
+      "id": "career-trajectory-chart",
+      "name": "Cross-cycle career trajectory chart",
+      "description": "For each Qontoer, a multi-cycle line: level progression, dimension growth, key projects, andon moments. Shows narrative without anyone narrating it.",
+      "primary_user": "employee",
+      "surface": "career-framework",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "retrieve",
+      "inspiration": [
+        "LinkedIn career timeline × Notion review templates"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Owner-visible. Sharable with manager. Never aggregated across employees."
+    },
+    {
+      "id": "promotion-evidence-completeness",
+      "name": "Promotion evidence-completeness meter",
+      "description": "Before submitting a promotion case, a bar fills as you cite evidence for each next-level anchor behavior. 'Your case is 70% covered — two anchors have no evidence yet.' Helps the case write itself.",
+      "primary_user": "employee",
+      "surface": "career-framework",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "aggregate",
+      "inspiration": [
+        "GitHub PR checks × promo handbook"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Meter is a guide, not a gate. Qontoer + manager decide when to submit."
+    },
+    {
+      "id": "calibration-dissent-tag",
+      "name": "Calibration dissent tag",
+      "description": "Any rating change carries an optional 'I dissent' tag a participant can add (with reason). Audit-logged. Better than silent participation.",
+      "primary_user": "manager",
+      "surface": "calibration",
+      "help_mode": "manager-does-job",
+      "ai_mode": "none",
+      "inspiration": [
+        "Amazon-style disagree-and-commit, with the disagree on record"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "Dissent doesn't block the move; it records the disagreement for posterity."
+    },
+    {
+      "id": "bilingual-letter-parity",
+      "name": "Bilingual review/letter parity",
+      "description": "For Qontoers whose preferred language ≠ working language, the system enforces both panes side by side on critical documents (comp letter, sometimes review). Manager edits both together — neither pane is the 'official' afterthought.",
+      "primary_user": "employee",
+      "surface": "comp-letter",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "translate",
+      "inspiration": [
+        "Qonto bilingual operating reality"
+      ],
+      "complexity": "M",
+      "poc_fit": false,
+      "trust_pattern": "Both versions saved. Neither is canonical alone — both are signed."
+    },
+    {
+      "id": "intent-vs-impact-prompt",
+      "name": "Intent-vs-impact prompt on feedback",
+      "description": "When giving feedback (peer or manager), system gently asks 'is this about intent, impact, or behavior?' once per submission. Reframes vague feedback toward specifics.",
+      "primary_user": "peer",
+      "surface": "peer-feedback",
+      "help_mode": "peer-contributes",
+      "ai_mode": "none",
+      "inspiration": [
+        "Radical Candor framework"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "One-time prompt per submission. Skippable. Educational, not gating."
+    },
+    {
+      "id": "goal-reorientation-prompt",
+      "name": "Mid-cycle goal-reorientation prompt",
+      "description": "If a goal hasn't been touched in 6+ weeks during a cycle, system asks the owner: 'still on the plate, deferred, or done differently?' Kills zombie goals.",
+      "primary_user": "employee",
+      "surface": "goals",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "none",
+      "inspiration": [
+        "OKR check-in cadence × kaizen"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "Owner-driven. Manager sees the disposition only when the owner chooses to update."
+    },
+    {
+      "id": "peer-feedback-window-cap",
+      "name": "Peer feedback window cap",
+      "description": "Each peer can be asked for feedback ≤3 times per cycle across the org. Prevents popular Qontoers from drowning in requests.",
+      "primary_user": "peer",
+      "surface": "peer-feedback",
+      "help_mode": "peer-contributes",
+      "ai_mode": "none",
+      "inspiration": [
+        "Recipient-side rate limiting"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "Cap is a default; HR can adjust. Recipient sees the count; requesters see availability before asking."
+    },
+    {
+      "id": "calibration-quiet-dissent",
+      "name": "Quiet-dissent reaction primitive",
+      "description": "Calibration participants can react to any move with 🤔 (need to discuss) without leaving a comment. Silent participants don't disappear; their hesitation is on the record.",
+      "primary_user": "manager",
+      "surface": "calibration",
+      "help_mode": "manager-does-job",
+      "ai_mode": "none",
+      "inspiration": [
+        "Linear / Slack reactions"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "Reactions roll up to a facilitator view; not 'who reacted what' broadcast to everyone."
+    },
+    {
+      "id": "compensation-history-narrative",
+      "name": "Compensation history narrative",
+      "description": "Each Qontoer's pay history shows every change with date, reason captured at the time, manager, and band version. Forms a readable narrative not a spreadsheet.",
+      "primary_user": "employee",
+      "surface": "pay-transparency",
+      "help_mode": "employee-makes-case",
+      "ai_mode": "retrieve",
+      "inspiration": [
+        "Stripe billing history × GitLab handbook diffs"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "Owner reads their own narrative. Reasons captured at decision time are the source of truth."
+    },
+    {
+      "id": "first-draft-immune-mode",
+      "name": "First-draft immune mode",
+      "description": "For high-stakes Qontoers (new managers, promo candidates, hard cases), the AI scaffolder is *disabled* by default so the manager writes from scratch first. Manager can opt-in later.",
+      "primary_user": "manager",
+      "surface": "manager-review",
+      "help_mode": "manager-does-job",
+      "ai_mode": "none",
+      "inspiration": [
+        "Anchoring-bias mitigation"
+      ],
+      "complexity": "S",
+      "poc_fit": false,
+      "trust_pattern": "Default is AI-off for these cases. Manager explicitly opts in to AI assist."
     }
   ],
   "rejected": [
