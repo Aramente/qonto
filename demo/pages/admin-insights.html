@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Qonto · Admin · Insights</title>
+<link rel="stylesheet" href="../assets/qonto.css" />
+<style>
+  .bell { display:flex; align-items:flex-end; gap:6px; height:120px; padding:8px 0; }
+  .bell .bar { background: var(--qonto-blueberry-100); flex:1; border-radius:6px 6px 0 0; position:relative; }
+  .bell .bar.flag { background: var(--qonto-peach-50); }
+  .bell .bar:hover::after { content: attr(data-v); position:absolute; bottom:100%; left:50%; transform:translateX(-50%) translateY(-4px); background:var(--qonto-black); color:var(--qonto-white); padding:4px 8px; border-radius:4px; font-size:11px; white-space:nowrap; }
+  .equity-grid { display:grid; grid-template-columns: 120px repeat(5, 1fr); gap:2px; font-size:11px; }
+  .equity-grid > .head { font-weight:600; color:var(--qonto-grey-700); padding:6px; text-align:center; text-transform:uppercase; letter-spacing:0.05em; }
+  .equity-grid > .row-head { font-weight:600; padding:8px 6px; display:flex; align-items:center; background:var(--qonto-grey-50); border-radius:var(--qr-sm); }
+  .equity-grid > .cell { padding:12px 6px; text-align:center; font-weight:600; color:var(--qonto-black); border-radius:var(--qr-sm); font-size:13px; }
+  .equity-grid > .cell.ok { background:#e0fff0; }
+  .equity-grid > .cell.warn { background: var(--qonto-mustard-50); }
+  .equity-grid > .cell.alert { background: var(--qonto-peach-50); color:var(--qonto-peach-1000); }
+  .equity-grid > .cell.crit { background:#ffe2e2; color:var(--qonto-red-1000); }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <a href="../index.html" class="brand"><span class="brand-mark">Q</span> Qonto</a>
+    <div>
+      <div class="nav-group-label">Admin</div>
+      <nav class="nav">
+        <a href="./admin-cycles.html"><span class="icon">⊟</span>Cycles</a>
+        <a href="./admin-insights.html" class="active"><span class="icon">∿</span>Insights</a>
+        <a href="#"><span class="icon">⌗</span>Skill matrix & bands</a>
+      </nav>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="crumbs"><strong>Admin · Insights · H1 2026</strong></div>
+      <div class="role-switch">
+        <a href="./dashboard.html">Employee</a>
+        <a href="./perf-team.html">Manager</a>
+        <a href="#" class="active">People team</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <h1>Insights · H1 2026</h1>
+        <p class="muted">Calibration distribution, pay-equity, manager rater bias — one screen, no exports.</p>
+      </div>
+      <div class="right row">
+        <select style="width:auto"><option>All offices</option><option>Paris</option><option>Berlin</option></select>
+        <select style="width:auto"><option>All functions</option><option>Engineering</option><option>Product</option></select>
+        <button class="btn secondary">Export EU PT report</button>
+      </div>
+    </div>
+
+    <div class="grid cols-4">
+      <div class="card kpi"><span class="label">Calibrated</span><span class="value">1,082<span style="font-size:18px;color:var(--qonto-grey-500)">/1,512</span></span><span class="small muted">72% complete</span></div>
+      <div class="card kpi"><span class="label">Promotions</span><span class="value">147</span><span class="small muted">9.7% of pop · prior cycle 9.1%</span></div>
+      <div class="card kpi"><span class="label">Merit avg</span><span class="value">3.4%</span><span class="small muted">vs envelope target 3.5%</span></div>
+      <div class="card kpi"><span class="label">Pay-equity (unexplained)</span><span class="value" style="color:var(--qonto-mint-1000)">-0.2%</span><span class="small muted">Within EU PT tolerance</span></div>
+    </div>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Rating distribution · Engineering</h3>
+        <p class="small muted">Aggregated across 312 calibrated Engineers. Bars in peach = squads that trend outside Eng overall.</p>
+        <div class="bell">
+          <div class="bar" style="height:10%" data-v="Below · 8"></div>
+          <div class="bar" style="height:22%" data-v="Mid-low · 38"></div>
+          <div class="bar" style="height:55%" data-v="Mid · 102"></div>
+          <div class="bar" style="height:70%" data-v="Mid-high · 128"></div>
+          <div class="bar flag" style="height:55%" data-v="High · 87 · Cards squad runs +1 tier"></div>
+          <div class="bar" style="height:18%" data-v="Top · 12"></div>
+        </div>
+        <div class="bell-axis row" style="font-size:11px;color:var(--qonto-grey-600);margin-top:6px">
+          <div style="flex:1;text-align:center">Below</div>
+          <div style="flex:1;text-align:center">Mid-low</div>
+          <div style="flex:1;text-align:center">Mid</div>
+          <div style="flex:1;text-align:center">Mid-high</div>
+          <div style="flex:1;text-align:center">High</div>
+          <div style="flex:1;text-align:center">Top</div>
+        </div>
+        <div class="ai-callout" style="margin-top:8px;background:linear-gradient(180deg, #fff7e0 0%, #fff 100%);border-color:var(--qonto-mustard-50)">
+          <span class="ai-label" style="color:var(--qonto-mustard-1000)">Manager-bias signal</span>
+          <p class="small"><strong>Cards squad runs +1 tier high.</strong> Three managers — Camille, Hadi, Lou — haven't compared notes this cycle. Worth a 30-min cross-calibration before lock. The previous cycle's Cards bias was -0.5 (lenient); this cycle is +1.0 (strict pattern flipped).</p>
+          <div class="ai-actions"><button class="btn sm secondary">Schedule cross-cal</button></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Pay-equity heatmap · proposal as-of today</h3>
+        <p class="small muted">Live sandbox — updates as managers type. Cells show explained vs unexplained gap.</p>
+        <div class="equity-grid" style="margin-top:8px">
+          <div></div>
+          <div class="head">L2</div><div class="head">L3</div><div class="head">L4</div><div class="head">L5</div><div class="head">L6</div>
+
+          <div class="row-head">Gender</div>
+          <div class="cell ok">+0.1%</div>
+          <div class="cell ok">+0.3%</div>
+          <div class="cell warn">+1.4%</div>
+          <div class="cell ok">+0.6%</div>
+          <div class="cell alert">+2.8%</div>
+
+          <div class="row-head">Tenure</div>
+          <div class="cell ok">+0.2%</div>
+          <div class="cell ok">+0.1%</div>
+          <div class="cell ok">+0.4%</div>
+          <div class="cell warn">+1.1%</div>
+          <div class="cell ok">+0.3%</div>
+
+          <div class="row-head">Office</div>
+          <div class="cell ok">+0.1%</div>
+          <div class="cell ok">+0.2%</div>
+          <div class="cell ok">+0.0%</div>
+          <div class="cell warn">+1.6%</div>
+          <div class="cell ok">+0.5%</div>
+
+          <div class="row-head">Function</div>
+          <div class="cell ok">+0.0%</div>
+          <div class="cell ok">+0.3%</div>
+          <div class="cell ok">+0.2%</div>
+          <div class="cell ok">+0.4%</div>
+          <div class="cell warn">+1.2%</div>
+        </div>
+        <p class="small muted" style="margin-top:8px"><strong>One alert:</strong> L6 gender +2.8% is above the 2% intervention threshold. 3 of 14 L6 Qontoers identify as women — small sample but the gap traces to a 2023 hire still below the band mid. Sandbox shows correction would consume €4,200 of the unallocated envelope.</p>
+      </div>
+    </div>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Manager rater patterns · Engineering</h3>
+        <p class="small muted">Each row: a manager's calibration distribution vs the Eng average. Top of list = trends highest vs peers.</p>
+        <table>
+          <thead><tr><th>Manager</th><th>Team</th><th>Mid+ share</th><th>Vs Eng avg</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Camille L.</td><td>Cards</td><td>71%</td><td><span class="pill peach" style="font-size:11px">+12pp</span></td><td><a href="./perf-calibration.html" class="small" style="color:var(--qonto-blueberry-1000)">Open →</a></td></tr>
+            <tr><td>Hadi K.</td><td>Cards</td><td>68%</td><td><span class="pill peach" style="font-size:11px">+9pp</span></td><td></td></tr>
+            <tr><td>Lou V.</td><td>Cards</td><td>64%</td><td><span class="pill mustard" style="font-size:11px">+5pp</span></td><td></td></tr>
+            <tr><td>Sophie D.</td><td>Payments</td><td>61%</td><td><span class="pill" style="font-size:11px;background:var(--qonto-grey-100)">+2pp</span></td><td></td></tr>
+            <tr><td>Tarek B.</td><td>Compliance</td><td>52%</td><td><span class="pill" style="font-size:11px;background:var(--qonto-grey-100)">-7pp</span></td><td></td></tr>
+            <tr><td>Aïcha M.</td><td>SRE</td><td>48%</td><td><span class="pill mustard" style="font-size:11px">-11pp</span></td><td></td></tr>
+          </tbody>
+        </table>
+        <p class="small muted" style="margin-top:8px">Surfaces patterns, not blame. Use this to schedule the right cross-calibrations before lock.</p>
+      </div>
+
+      <div class="card">
+        <h3>Outcomes vs The Qonto Way</h3>
+        <p class="small muted">A read on how this cycle's outcomes align with the three pillars and the values.</p>
+        <div class="col" style="gap:12px;margin-top:8px">
+          <div>
+            <div class="row small"><strong>Boost Individual</strong><span class="right pill mint">Strong</span></div>
+            <p class="small muted">68% of Qontoers raised at least one skill-matrix dimension. Above the 60% target.</p>
+          </div>
+          <div>
+            <div class="row small"><strong>Catalyze Collective</strong><span class="right pill mustard">Watch</span></div>
+            <p class="small muted">Cross-team feedback density flat vs H2 2025. Hadi's note on legal-review timing is the most-mentioned blocker.</p>
+          </div>
+          <div>
+            <div class="row small"><strong>Build the Team</strong><span class="right pill mint">Strong</span></div>
+            <p class="small muted">147 promotions, 31 internal mobility moves. Promoted-from-within share at 78%.</p>
+          </div>
+        </div>
+        <p class="small muted" style="margin-top:8px;font-style:italic">"Talent is not something we have but something we grow." — Steve Anavi</p>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

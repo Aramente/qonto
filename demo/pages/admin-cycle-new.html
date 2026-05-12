@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Qonto · New campaign · Step 1</title>
+<link rel="stylesheet" href="../assets/qonto.css" />
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <a href="../index.html" class="brand"><span class="brand-mark">Q</span> Qonto</a>
+    <div>
+      <div class="nav-group-label">Admin</div>
+      <nav class="nav">
+        <a href="./admin-cycles.html" class="active"><span class="icon">⊟</span>Cycles</a>
+        <a href="./admin-insights.html"><span class="icon">∿</span>Insights</a>
+        <a href="#"><span class="icon">⌗</span>Skill matrix & bands</a>
+      </nav>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="crumbs"><a href="./admin-cycles.html">Admin</a> · <a href="./admin-cycles.html">Cycles</a> · <strong>New campaign</strong></div>
+      <div class="role-switch">
+        <a href="./dashboard.html">Employee</a>
+        <a href="./perf-team.html">Manager</a>
+        <a href="#" class="active">People team</a>
+      </div>
+    </div>
+
+    <div>
+      <h1>Lancer une nouvelle campagne</h1>
+      <p class="muted">Three steps · Population, form, planning. Take 4 minutes if you're cloning a previous campaign.</p>
+    </div>
+
+    <!-- Step indicator -->
+    <div class="card" style="padding:0;overflow:hidden">
+      <div class="row" style="gap:0">
+        <div style="flex:1;padding:16px 20px;border-bottom:3px solid var(--qonto-black);background:var(--qonto-white)">
+          <div class="tiny">Step 1 of 3</div>
+          <div style="font-weight:600;margin-top:2px">Population</div>
+        </div>
+        <div style="flex:1;padding:16px 20px;border-bottom:3px solid var(--qonto-grey-200);background:var(--qonto-grey-50)">
+          <div class="tiny">Step 2 of 3</div>
+          <div style="font-weight:600;margin-top:2px;color:var(--qonto-grey-500)">Form</div>
+        </div>
+        <div style="flex:1;padding:16px 20px;border-bottom:3px solid var(--qonto-grey-200);background:var(--qonto-grey-50)">
+          <div class="tiny">Step 3 of 3</div>
+          <div style="font-weight:600;margin-top:2px;color:var(--qonto-grey-500)">Planning & reminders</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" style="grid-template-columns:1fr 360px;gap:24px;align-items:flex-start">
+      <div class="card">
+        <h2>1 · Population</h2>
+        <p class="muted small">Who is part of this campaign? Filter by office, team, tenure or level. You can preview with a sandbox employee before launch.</p>
+
+        <div>
+          <label>Campaign name</label>
+          <input value="H2 2026 Progress Review" />
+        </div>
+
+        <div class="grid cols-2">
+          <div>
+            <label>Type</label>
+            <select>
+              <option>Progress Review (bi-annual)</option>
+              <option>Comp window</option>
+              <option>Off-cycle promotion</option>
+              <option>Off-cycle market correction</option>
+            </select>
+          </div>
+          <div>
+            <label>Clone from</label>
+            <select>
+              <option>H1 2026 Progress Review</option>
+              <option>H2 2025 Progress Review</option>
+              <option>Start from scratch</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label>Include</label>
+          <div class="grid cols-3" style="gap:8px">
+            <div class="row" style="gap:8px"><input type="checkbox" checked style="width:auto" /><span class="small">All Qontoers, hired ≥ 6 months</span></div>
+            <div class="row" style="gap:8px"><input type="checkbox" checked style="width:auto" /><span class="small">Managers — three-pillar form</span></div>
+            <div class="row" style="gap:8px"><input type="checkbox" checked style="width:auto" /><span class="small">ICs — skill-matrix form</span></div>
+            <div class="row" style="gap:8px"><input type="checkbox" style="width:auto" /><span class="small">Trial-period (< 6mo)</span></div>
+            <div class="row" style="gap:8px"><input type="checkbox" checked style="width:auto" /><span class="small">Parental-leave returners</span></div>
+            <div class="row" style="gap:8px"><input type="checkbox" style="width:auto" /><span class="small">Notice-period Qontoers</span></div>
+          </div>
+        </div>
+
+        <div>
+          <label>Offices</label>
+          <div class="row" style="flex-wrap:wrap;gap:6px">
+            <span class="pill blueberry">Paris · 724</span>
+            <span class="pill blueberry">Berlin · 198</span>
+            <span class="pill blueberry">Milan · 211</span>
+            <span class="pill blueberry">Madrid · 183</span>
+            <span class="pill blueberry">Barcelona · 196</span>
+            <button class="btn sm ghost">+ Add</button>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <span class="small muted"><strong>1,512 Qontoers</strong> will be in this campaign. <a href="#" style="color:var(--qonto-blueberry-1000)">Preview list →</a></span>
+          <a href="./admin-cycles.html" class="right btn ghost">Cancel</a>
+          <button class="btn primary">Continue to form →</button>
+        </div>
+      </div>
+
+      <!-- Right rail -->
+      <div class="col" style="position:sticky;top:24px;gap:16px">
+        <div class="card">
+          <div class="tiny">Sandbox</div>
+          <h3 style="margin-top:4px">Preview with one Qontoer</h3>
+          <p class="small muted">Pick a fake or real employee to walk through the campaign before launch. Reduces day-1 fires.</p>
+          <select style="margin-top:8px"><option>Camille L. (demo Qontoer)</option><option>Use sandbox employee</option></select>
+          <button class="btn secondary sm" style="margin-top:8px;align-self:flex-start">Preview now</button>
+        </div>
+
+        <div class="card">
+          <div class="tiny">Reused from last cycle</div>
+          <h3 style="margin-top:4px">H1 2026 settings</h3>
+          <ul class="small muted" style="padding-left:18px">
+            <li>Three-pillar form for managers</li>
+            <li>Skill matrix v2.1</li>
+            <li>Peer requests: 5 per Qontoer</li>
+            <li>Anonymity per question</li>
+            <li>Lattice-style calibration box view</li>
+            <li>Salary grid v2026.1</li>
+          </ul>
+          <button class="btn sm ghost" style="margin-top:8px;align-self:flex-start">Edit cloned settings</button>
+        </div>
+
+        <div class="card">
+          <div class="tiny">Hint</div>
+          <p class="small muted">Closing one campaign before opening the next? Set this one to start <strong>Nov 15</strong> — that's 2 weeks after H1 calibration locks.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

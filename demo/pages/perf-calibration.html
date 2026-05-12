@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Qonto · Calibration · Cards squad</title>
+<link rel="stylesheet" href="../assets/qonto.css" />
+<style>
+  .matrix-wrap { display:grid; grid-template-columns: 120px 1fr 1fr 1fr; grid-template-rows: 60px 1fr 1fr 1fr; gap:8px; }
+  .matrix-cell { background: var(--qonto-grey-50); border-radius: var(--qr-md); padding: 10px; min-height: 160px; display:flex; flex-direction:column; gap:8px; position:relative; }
+  .matrix-cell.tier-promote { background: var(--qonto-mint-50); }
+  .matrix-cell.tier-strong  { background: #e0fff0; }
+  .matrix-cell.tier-meets   { background: var(--qonto-white); border: 1px solid var(--qonto-grey-200); }
+  .matrix-cell.tier-improve { background: var(--qonto-peach-50); }
+  .matrix-cell.tier-action  { background: #ffe2e2; }
+  .matrix-cell .cell-tag { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; color: var(--qonto-grey-700); }
+  .matrix-cell .cell-count { font-size: 11px; color: var(--qonto-grey-600); }
+  .matrix-cell .avatars { display:flex; flex-wrap:wrap; gap:6px; flex:1; align-content:flex-start; }
+  .matrix-cell .avatars .avatar { cursor: grab; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .matrix-cell .avatars .avatar:hover { transform: translateY(-1px); }
+  .axis-x { display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:600; color: var(--qonto-grey-700); }
+  .axis-y { display:flex; align-items:center; justify-content:center; writing-mode: vertical-rl; transform: rotate(180deg); font-size:11px; font-weight:600; color: var(--qonto-grey-700); text-transform:uppercase; letter-spacing:0.05em; }
+  .hover-card { position:absolute; bottom: calc(100% + 8px); left: 0; background: var(--qonto-black); color: var(--qonto-white); border-radius: var(--qr-md); padding: 12px; width: 280px; z-index: 10; display: none; box-shadow: 0 20px 40px rgba(0,0,0,0.25); font-size: 12px; line-height: 1.5; }
+  .avatar:hover + .hover-card { display: block; }
+  .bell { display: flex; align-items:flex-end; gap: 4px; height: 80px; padding: 8px 0; }
+  .bell .bar { background: var(--qonto-blueberry-100); flex:1; border-radius: 4px 4px 0 0; }
+  .bell .bar.your { background: var(--qonto-black); }
+  .bell-axis { display:flex; gap: 4px; font-size:11px; color:var(--qonto-grey-600); }
+  .bell-axis div { flex:1; text-align:center; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <a href="../index.html" class="brand"><span class="brand-mark">Q</span> Qonto</a>
+    <div>
+      <div class="nav-group-label">Mine</div>
+      <nav class="nav">
+        <a href="./dashboard.html"><span class="icon">●</span>Home</a>
+        <a href="./perf-self-review.html"><span class="icon">◐</span>My review</a>
+      </nav>
+    </div>
+    <div>
+      <div class="nav-group-label">My team</div>
+      <nav class="nav">
+        <a href="./perf-team.html"><span class="icon">▤</span>Team reviews</a>
+        <a href="./perf-calibration.html" class="active"><span class="icon">▣</span>Calibration</a>
+        <a href="./comp-team.html"><span class="icon">€</span>Comp planning</a>
+      </nav>
+    </div>
+    <div>
+      <div class="nav-group-label">Admin</div>
+      <nav class="nav">
+        <a href="./admin-cycles.html"><span class="icon">⊟</span>Cycles</a>
+        <a href="./admin-insights.html"><span class="icon">∿</span>Insights</a>
+      </nav>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="crumbs"><a href="./dashboard.html">Home</a> · <strong>Calibration · Engineering · Cards</strong></div>
+      <div class="role-switch">
+        <a href="./dashboard.html">Employee</a>
+        <a href="#" class="active">Manager</a>
+        <a href="./admin-cycles.html">People team</a>
+      </div>
+    </div>
+
+    <div class="row" style="gap:24px">
+      <div>
+        <h1>Calibration · H1 2026</h1>
+        <p class="muted">Engineering · Cards squad · 28 Qontoers across 5 managers. Drag avatars to move. Every move requires a one-line reason.</p>
+      </div>
+      <div class="right row">
+        <select style="width:auto;font-size:13px">
+          <option>X axis: Impact this half</option>
+          <option>X axis: Skill-matrix progression</option>
+          <option>X axis: Boost-Individual signal</option>
+        </select>
+        <select style="width:auto;font-size:13px">
+          <option>Y axis: Potential next level</option>
+          <option>Y axis: Trajectory (2-cycle)</option>
+          <option>Y axis: Cultural reinforcement</option>
+        </select>
+        <button class="btn secondary">Reset to managers' submissions</button>
+        <button class="btn primary">Lock calibration →</button>
+      </div>
+    </div>
+
+    <div class="grid" style="grid-template-columns:1fr 320px;gap:24px;align-items:flex-start">
+      <div class="card">
+        <div class="matrix-wrap">
+          <!-- header row: empty, then x-axis labels -->
+          <div></div>
+          <div class="axis-x">Below bar</div>
+          <div class="axis-x">Meets bar</div>
+          <div class="axis-x">Exceeds bar</div>
+
+          <!-- Row: High potential -->
+          <div class="axis-y">High potential</div>
+          <div class="matrix-cell tier-meets">
+            <span class="cell-tag">Mentor & retain</span>
+            <span class="cell-count">1 Qontoer</span>
+            <div class="avatars">
+              <div class="avatar sm" style="background:var(--qonto-mint-50);color:var(--qonto-mint-1000)">NM</div>
+            </div>
+          </div>
+          <div class="matrix-cell tier-strong">
+            <span class="cell-tag">Strong contributor</span>
+            <span class="cell-count">4 Qontoers</span>
+            <div class="avatars">
+              <div class="avatar sm" style="background:var(--qonto-peach-50);color:var(--qonto-peach-1000)">LR</div>
+              <div class="avatar sm" style="background:var(--qonto-sakura-50);color:var(--qonto-sakura-1000)">SK</div>
+              <div class="avatar sm" style="background:var(--qonto-blueberry-50);color:var(--qonto-blueberry-1000)">JV</div>
+              <div class="avatar sm" style="background:var(--qonto-mustard-50);color:var(--qonto-mustard-1000)">TA</div>
+            </div>
+          </div>
+          <div class="matrix-cell tier-promote">
+            <span class="cell-tag">Ready to promote</span>
+            <span class="cell-count">3 Qontoers · 2 promo cases open</span>
+            <div class="avatars">
+              <div class="avatar sm" style="background:var(--qonto-plum-50);color:var(--qonto-plum-1000)">MD</div>
+              <div class="hover-card">
+                <div class="row" style="gap:8px;margin-bottom:6px">
+                  <div class="avatar sm" style="background:var(--qonto-plum-50);color:var(--qonto-plum-1000)">MD</div>
+                  <div>
+                    <div style="font-weight:600">Mathieu Delcourt</div>
+                    <div style="opacity:0.7">L5 Staff → L6 case</div>
+                  </div>
+                </div>
+                <div style="opacity:0.85">3 dims raised. Andon authority across teams. Coached Pierre to readiness. Camille's draft: "Sets direction across squads, reframes problems."</div>
+                <div style="margin-top:6px;opacity:0.6;font-size:11px">AI synthesis · 14 sources</div>
+              </div>
+              <div class="avatar sm" style="background:var(--qonto-mustard-50);color:var(--qonto-mustard-1000)">EZ</div>
+              <div class="avatar sm" style="background:var(--qonto-mint-50);color:var(--qonto-mint-1000)">RB</div>
+            </div>
+          </div>
+
+          <!-- Row: On trajectory -->
+          <div class="axis-y">On trajectory</div>
+          <div class="matrix-cell tier-improve">
+            <span class="cell-tag">Coaching needed</span>
+            <span class="cell-count">2 Qontoers</span>
+            <div class="avatars">
+              <div class="avatar sm" style="background:var(--qonto-grey-300);color:var(--qonto-grey-800)">VA</div>
+              <div class="avatar sm" style="background:var(--qonto-grey-300);color:var(--qonto-grey-800)">HK</div>
+            </div>
+          </div>
+          <div class="matrix-cell tier-meets">
+            <span class="cell-tag">Consistent — at level</span>
+            <span class="cell-count">11 Qontoers</span>
+            <div class="avatars">
+              <div class="avatar sm" style="background:var(--qonto-grey-100);color:var(--qonto-grey-800)">PT</div>
+              <div class="avatar sm" style="background:var(--qonto-grey-100);color:var(--qonto-grey-800)">AC</div>
+              <div class="avatar sm" style="background:var(--qonto-grey-100);color:var(--qonto-grey-800)">FF</div>
+              <div class="avatar sm" style="background:var(--qonto-grey-100);color:var(--qonto-grey-800)">GR</div>
+              <div class="avatar sm" style="background:var(--qonto-grey-100);color:var(--qonto-grey-800)">JD</div>
+              <div class="avatar sm" style="background:var(--qonto-grey-100);color:var(--qonto-grey-800)">+6</div>
+            </div>
+          </div>
+          <div class="matrix-cell tier-strong">
+            <span class="cell-tag">Exceeding — at level</span>
+            <span class="cell-count">4 Qontoers</span>
+            <div class="avatars">
+              <div class="avatar sm" style="background:var(--qonto-blueberry-50);color:var(--qonto-blueberry-1000)">RB</div>
+              <div class="avatar sm" style="background:var(--qonto-blueberry-50);color:var(--qonto-blueberry-1000)">CL</div>
+              <div class="avatar sm" style="background:var(--qonto-mint-50);color:var(--qonto-mint-1000)">DR</div>
+              <div class="avatar sm" style="background:var(--qonto-peach-50);color:var(--qonto-peach-1000)">KM</div>
+            </div>
+          </div>
+
+          <!-- Row: Plateau -->
+          <div class="axis-y">Plateau / risk</div>
+          <div class="matrix-cell tier-action">
+            <span class="cell-tag">Action plan</span>
+            <span class="cell-count">1 Qontoer · open PIP draft</span>
+            <div class="avatars">
+              <div class="avatar sm" style="background:var(--qonto-red-400);color:var(--qonto-white)">??</div>
+            </div>
+          </div>
+          <div class="matrix-cell tier-improve">
+            <span class="cell-tag">Conversation needed</span>
+            <span class="cell-count">2 Qontoers</span>
+            <div class="avatars">
+              <div class="avatar sm" style="background:var(--qonto-grey-300);color:var(--qonto-grey-800)">EM</div>
+              <div class="avatar sm" style="background:var(--qonto-grey-300);color:var(--qonto-grey-800)">BC</div>
+            </div>
+          </div>
+          <div class="matrix-cell tier-meets">
+            <span class="cell-tag">Retain & re-energize</span>
+            <span class="cell-count">0 Qontoers</span>
+            <div class="avatars"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col" style="position:sticky;top:24px;gap:16px">
+        <div class="card">
+          <h3>Distribution this cycle</h3>
+          <div class="bell">
+            <div class="bar" style="height:15%"></div>
+            <div class="bar" style="height:30%"></div>
+            <div class="bar your" style="height:75%"></div>
+            <div class="bar" style="height:60%"></div>
+            <div class="bar" style="height:25%"></div>
+            <div class="bar" style="height:10%"></div>
+          </div>
+          <div class="bell-axis">
+            <div>Below</div><div>Mid-low</div><div>Mid</div><div>Mid-high</div><div>High</div><div>Top</div>
+          </div>
+          <div class="ai-callout" style="margin-top:8px;background:linear-gradient(180deg, #fff7e0 0%, #fff 100%);border-color:var(--qonto-mustard-50)">
+            <span class="ai-label" style="color:var(--qonto-mustard-1000)">Bias signal</span>
+            <p class="small">Cards squad's draft distribution trends 1 tier higher than Eng overall. Worth a check before lock — three managers haven't compared notes yet.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Pay-equity quick check</h3>
+          <p class="small muted">Across the 28 calibrated.</p>
+          <div class="grid cols-2" style="gap:8px;margin-top:6px">
+            <div class="kpi"><span class="value" style="font-size:24px">+0.4%</span><span class="label">Gender pay gap (explained)</span></div>
+            <div class="kpi"><span class="value" style="font-size:24px">-0.2%</span><span class="label">Unexplained</span></div>
+          </div>
+          <p class="small muted" style="margin-top:6px">Within EU Pay Transparency tolerance. Detailed view in the People-team Insights panel.</p>
+        </div>
+
+        <div class="card">
+          <h3>Open promotion cases</h3>
+          <div class="col" style="gap:8px">
+            <div class="row small">
+              <div class="avatar sm" style="background:var(--qonto-plum-50);color:var(--qonto-plum-1000)">MD</div>
+              <div>Mathieu D. · L5 → L6</div>
+              <span class="right pill blueberry" style="font-size:11px">Ready</span>
+            </div>
+            <div class="row small">
+              <div class="avatar sm" style="background:var(--qonto-mustard-50);color:var(--qonto-mustard-1000)">EZ</div>
+              <div>Emma Z. · L3 → L4</div>
+              <span class="right pill peach" style="font-size:11px">Discuss</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

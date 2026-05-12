@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Qonto · Comp planning · Cards squad</title>
+<link rel="stylesheet" href="../assets/qonto.css" />
+<style>
+  .band {
+    position:relative; height:8px; border-radius:999px;
+    background: linear-gradient(90deg, var(--qonto-grey-100) 0%, var(--qonto-mint-50) 50%, var(--qonto-grey-100) 100%);
+    width: 100%; min-width: 160px;
+  }
+  .band .min, .band .mid, .band .max {
+    position:absolute; top: -4px; width: 2px; height: 16px; background: var(--qonto-grey-400);
+  }
+  .band .min { left: 0; }
+  .band .mid { left: 50%; background: var(--qonto-grey-700); }
+  .band .max { right: 0; }
+  .band .current {
+    position:absolute; top: -6px; width: 14px; height: 20px; border-radius: 6px;
+    background: var(--qonto-black); transform: translateX(-50%);
+    box-shadow: 0 0 0 3px var(--qonto-white);
+  }
+  .band .proposed {
+    position:absolute; top: -2px; width: 10px; height: 12px; border-radius: 4px;
+    background: var(--qonto-blueberry-1000); transform: translateX(-50%);
+    box-shadow: 0 0 0 2px var(--qonto-white);
+  }
+  .band-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+  .band-labels { display:flex; justify-content: space-between; font-size: 10px; color: var(--qonto-grey-500); margin-top: 6px; }
+  .delta-up { color: var(--qonto-mint-1000); font-weight: 600; }
+  .delta-zero { color: var(--qonto-grey-500); }
+  .compa-ratio { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .compa-low { color: var(--qonto-red-1000); }
+  .compa-mid { color: var(--qonto-grey-700); }
+  .compa-high { color: var(--qonto-mint-1000); }
+  .budget-bar {
+    height: 10px; background: var(--qonto-grey-100); border-radius: 999px; overflow: hidden;
+    display: flex;
+  }
+  .budget-bar > div { height: 100%; }
+  .budget-bar .used { background: var(--qonto-black); }
+  .budget-bar .pending { background: var(--qonto-peach-50); }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <a href="../index.html" class="brand"><span class="brand-mark">Q</span> Qonto</a>
+    <div>
+      <div class="nav-group-label">Mine</div>
+      <nav class="nav">
+        <a href="./dashboard.html"><span class="icon">●</span>Home</a>
+        <a href="./perf-self-review.html"><span class="icon">◐</span>My review</a>
+      </nav>
+    </div>
+    <div>
+      <div class="nav-group-label">My team</div>
+      <nav class="nav">
+        <a href="./perf-team.html"><span class="icon">▤</span>Team reviews</a>
+        <a href="./perf-calibration.html"><span class="icon">▣</span>Calibration</a>
+        <a href="./comp-team.html" class="active"><span class="icon">€</span>Comp planning</a>
+      </nav>
+    </div>
+    <div>
+      <div class="nav-group-label">Admin</div>
+      <nav class="nav">
+        <a href="./admin-cycles.html"><span class="icon">⊟</span>Cycles</a>
+        <a href="./admin-insights.html"><span class="icon">∿</span>Insights</a>
+      </nav>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="crumbs"><a href="./dashboard.html">Home</a> · <strong>Comp planning · Cards squad · H1 2026</strong></div>
+      <div class="role-switch">
+        <a href="./dashboard.html">Employee</a>
+        <a href="#" class="active">Manager</a>
+        <a href="./admin-cycles.html">People team</a>
+      </div>
+    </div>
+
+    <div class="row" style="gap:24px">
+      <div>
+        <h1>Comp planning · H1 2026</h1>
+        <p class="muted">Salary grid is the anchor — same level, same band. Recommendations are pre-filled from calibration. You can override with a reason.</p>
+      </div>
+      <div class="right row">
+        <button class="btn secondary">Sandbox preview</button>
+        <button class="btn primary">Submit to Catherine →</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="gap:24px">
+        <div class="kpi">
+          <span class="label">Envelope</span>
+          <span class="value" style="font-size:28px">€48,000</span>
+          <span class="small muted">3.2% of team payroll · set by Finance</span>
+        </div>
+        <div style="flex:1">
+          <div class="row" style="margin-bottom:6px">
+            <span class="small" style="font-weight:600">Allocated</span>
+            <span class="right small">€37,800 / €48,000 · 79%</span>
+          </div>
+          <div class="budget-bar">
+            <div class="used" style="width:65%"></div>
+            <div class="pending" style="width:14%"></div>
+          </div>
+          <div class="row" style="font-size:11px;color:var(--qonto-grey-600);margin-top:6px">
+            <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--qonto-black);vertical-align:middle"></span> Committed €31,200</span>
+            <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--qonto-peach-50);vertical-align:middle"></span> Pending review €6,600</span>
+            <span class="right">€10,200 remaining</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h2>Your 7 Qontoers</h2>
+        <span class="right small muted">Bands as the source of truth. Compa-ratio shown beside each salary.</span>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Qontoer</th>
+            <th>Level</th>
+            <th>Calibration</th>
+            <th style="min-width:240px">Position in band</th>
+            <th>Current</th>
+            <th>Compa</th>
+            <th>Recommended</th>
+            <th>You</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="row">
+                <div class="avatar sm" style="background:var(--qonto-plum-50);color:var(--qonto-plum-1000)">MD</div>
+                <div>
+                  <div style="font-weight:600">Mathieu D.</div>
+                  <div class="small muted">Staff Eng · 2y</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="pill blueberry">L5 → L6</span></td>
+            <td><span class="pill mint" style="font-size:11px">Ready to promote</span></td>
+            <td>
+              <div class="band-row">
+                <div class="band">
+                  <span class="min"></span><span class="mid"></span><span class="max"></span>
+                  <span class="current" style="left:45%"></span>
+                  <span class="proposed" style="left:62%"></span>
+                </div>
+                <span class="small" style="white-space:nowrap;color:var(--qonto-grey-700)">→ +17pp</span>
+              </div>
+              <div class="band-labels"><span>€72k</span><span>€86k mid</span><span>€100k</span></div>
+            </td>
+            <td>€81,000</td>
+            <td><span class="compa-ratio compa-mid">0.94</span></td>
+            <td>+€9,400 <span class="small muted">(+11.6%)</span></td>
+            <td>
+              <input value="+€9,400" style="font-weight:600;width:120px" />
+            </td>
+            <td><a href="./comp-letter.html" class="btn sm primary">Letter ✦</a></td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="row">
+                <div class="avatar sm" style="background:var(--qonto-peach-50);color:var(--qonto-peach-1000)">LR</div>
+                <div>
+                  <div style="font-weight:600">Lila R.</div>
+                  <div class="small muted">Senior Eng · 1y</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="pill blueberry">L4 stable</span></td>
+            <td><span class="pill" style="font-size:11px;background:#e0fff0;color:var(--qonto-mint-1000)">Exceeding at level</span></td>
+            <td>
+              <div class="band-row">
+                <div class="band">
+                  <span class="min"></span><span class="mid"></span><span class="max"></span>
+                  <span class="current" style="left:38%"></span>
+                  <span class="proposed" style="left:50%"></span>
+                </div>
+                <span class="small" style="white-space:nowrap;color:var(--qonto-grey-700)">→ +12pp</span>
+              </div>
+              <div class="band-labels"><span>€56k</span><span>€66k mid</span><span>€76k</span></div>
+            </td>
+            <td>€59,800</td>
+            <td><span class="compa-ratio compa-mid">0.91</span></td>
+            <td>+€4,200 <span class="small muted">(+7.0%)</span></td>
+            <td>
+              <input value="+€4,800" style="font-weight:600;width:120px;border-color:var(--qonto-blueberry-500)" />
+            </td>
+            <td><button class="btn sm secondary">Note ↗</button></td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="row">
+                <div class="avatar sm" style="background:var(--qonto-mint-50);color:var(--qonto-mint-1000)">PT</div>
+                <div>
+                  <div style="font-weight:600">Pierre T.</div>
+                  <div class="small muted">Mid Eng · 3y</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="pill blueberry">L3 stable</span></td>
+            <td><span class="pill" style="font-size:11px;background:var(--qonto-grey-100);color:var(--qonto-grey-700)">Consistent at level</span></td>
+            <td>
+              <div class="band-row">
+                <div class="band">
+                  <span class="min"></span><span class="mid"></span><span class="max"></span>
+                  <span class="current" style="left:52%"></span>
+                  <span class="proposed" style="left:58%"></span>
+                </div>
+                <span class="small" style="white-space:nowrap;color:var(--qonto-grey-700)">→ +6pp</span>
+              </div>
+              <div class="band-labels"><span>€44k</span><span>€52k mid</span><span>€60k</span></div>
+            </td>
+            <td>€52,400</td>
+            <td><span class="compa-ratio compa-mid">1.01</span></td>
+            <td>+€1,600 <span class="small muted">(+3.1%)</span></td>
+            <td><input value="+€1,600" style="width:120px" /></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="row">
+                <div class="avatar sm" style="background:var(--qonto-sakura-50);color:var(--qonto-sakura-1000)">SK</div>
+                <div>
+                  <div style="font-weight:600">Sofiane K.</div>
+                  <div class="small muted">Senior Eng · 6mo</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="pill blueberry">L4 stable</span></td>
+            <td><span class="pill peach" style="font-size:11px">Coaching needed</span></td>
+            <td>
+              <div class="band-row">
+                <div class="band">
+                  <span class="min"></span><span class="mid"></span><span class="max"></span>
+                  <span class="current" style="left:25%"></span>
+                  <span class="proposed" style="left:30%"></span>
+                </div>
+                <span class="small" style="white-space:nowrap;color:var(--qonto-grey-700)">→ +5pp</span>
+              </div>
+              <div class="band-labels"><span>€56k</span><span>€66k mid</span><span>€76k</span></div>
+            </td>
+            <td>€57,000</td>
+            <td><span class="compa-ratio compa-low">0.86</span></td>
+            <td>+€1,400 <span class="small muted">(+2.5%)</span></td>
+            <td><input value="+€1,400" style="width:120px" /></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="row">
+                <div class="avatar sm" style="background:var(--qonto-mustard-50);color:var(--qonto-mustard-1000)">EZ</div>
+                <div>
+                  <div style="font-weight:600">Emma Z.</div>
+                  <div class="small muted">Mid Eng · 2y · <span style="color:var(--qonto-plum-1000);font-weight:600">promo</span></div>
+                </div>
+              </div>
+            </td>
+            <td><span class="pill blueberry">L3 → L4</span></td>
+            <td><span class="pill mint" style="font-size:11px">Ready to promote</span></td>
+            <td>
+              <div class="band-row">
+                <div class="band">
+                  <span class="min"></span><span class="mid"></span><span class="max"></span>
+                  <span class="current" style="left:85%"></span>
+                  <span class="proposed" style="left:30%"></span>
+                </div>
+                <span class="small" style="white-space:nowrap;color:var(--qonto-grey-700)">L3→L4</span>
+              </div>
+              <div class="band-labels"><span>L3 €44k / L4 €56k</span><span>L4 €66k</span><span>L4 €76k</span></div>
+            </td>
+            <td>€58,400</td>
+            <td><span class="compa-ratio compa-low">0.88<small> at L4</small></span></td>
+            <td>+€4,600 <span class="small muted">(+7.9%)</span></td>
+            <td><input value="+€4,600" style="font-weight:600;width:120px" /></td>
+            <td><a href="./comp-letter.html" class="btn sm primary">Letter ✦</a></td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="row">
+                <div class="avatar sm" style="background:var(--qonto-blueberry-50);color:var(--qonto-blueberry-1000)">NM</div>
+                <div>
+                  <div style="font-weight:600">Noor M.</div>
+                  <div class="small muted">Junior Eng · 8mo</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="pill blueberry">L2 stable</span></td>
+            <td><span class="pill mint" style="font-size:11px">Mentor & retain</span></td>
+            <td>
+              <div class="band-row">
+                <div class="band">
+                  <span class="min"></span><span class="mid"></span><span class="max"></span>
+                  <span class="current" style="left:42%"></span>
+                  <span class="proposed" style="left:55%"></span>
+                </div>
+                <span class="small" style="white-space:nowrap;color:var(--qonto-grey-700)">→ +13pp</span>
+              </div>
+              <div class="band-labels"><span>€38k</span><span>€44k mid</span><span>€50k</span></div>
+            </td>
+            <td>€43,200</td>
+            <td><span class="compa-ratio compa-mid">0.98</span></td>
+            <td>+€2,800 <span class="small muted">(+6.5%)</span></td>
+            <td><input value="+€2,800" style="width:120px" /></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="row">
+                <div class="avatar sm" style="background:var(--qonto-plum-50);color:var(--qonto-plum-1000)">RB</div>
+                <div>
+                  <div style="font-weight:600">Romane B.</div>
+                  <div class="small muted">Senior Eng · 3y</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="pill blueberry">L4 stable</span></td>
+            <td><span class="pill" style="font-size:11px;background:#e0fff0;color:var(--qonto-mint-1000)">Exceeding at level</span></td>
+            <td>
+              <div class="band-row">
+                <div class="band">
+                  <span class="min"></span><span class="mid"></span><span class="max"></span>
+                  <span class="current" style="left:65%"></span>
+                  <span class="proposed" style="left:72%"></span>
+                </div>
+                <span class="small" style="white-space:nowrap;color:var(--qonto-grey-700)">→ +7pp</span>
+              </div>
+              <div class="band-labels"><span>€56k</span><span>€66k mid</span><span>€76k</span></div>
+            </td>
+            <td>€69,000</td>
+            <td><span class="compa-ratio compa-high">1.05</span></td>
+            <td>+€2,400 <span class="small muted">(+3.5%)</span></td>
+            <td><input value="+€2,400" style="width:120px" /></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="ai-callout" style="margin-top:12px">
+        <span class="ai-label">AI check · before you submit</span>
+        <p class="small"><strong>Two things worth a quick look.</strong> Sofiane sits at compa 0.86 with a "coaching needed" calibration — typical pattern when joining-salary lagged the band. He's been here 6 months, market has moved 4% since. Consider a one-time market correction outside the merit envelope. Also: your Lila override (+€4,800 vs reco +€4,200) is reasonable given two andon pulls she led; the system tagged it for HRBP visibility.</p>
+        <div class="ai-actions">
+          <button class="btn sm primary">Open Sofiane's record</button>
+          <button class="btn sm secondary">Show calculation</button>
+          <button class="btn sm ghost">Dismiss</button>
+        </div>
+        <p class="ai-source">Sources · band data Apr 2026 · Ravio benchmark · calibration outputs · andon log</p>
+      </div>
+    </div>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Pay-equity preview · this proposal</h3>
+        <p class="small muted">Sandbox shows the heatmap if your proposal ships as-is. Updates live as you type.</p>
+        <table style="margin-top:8px">
+          <tr><td>Gender pay gap (explained)</td><td class="right"><strong>+0.4%</strong></td><td class="right pill mint" style="font-size:11px">Within tolerance</td></tr>
+          <tr><td>Unexplained residual</td><td class="right"><strong>-0.2%</strong></td><td class="right pill mint" style="font-size:11px">OK</td></tr>
+          <tr><td>Seniority dispersion (L4)</td><td class="right"><strong>4.1%</strong></td><td class="right pill mint" style="font-size:11px">Healthy</td></tr>
+        </table>
+        <p class="small muted" style="margin-top:8px">EU Pay Transparency Directive ready · run a full report before lock.</p>
+      </div>
+
+      <div class="card">
+        <h3>Three pillars · how this maps</h3>
+        <p class="small muted">Comp moves should reflect the same evidence as your Progress Review.</p>
+        <div class="col" style="gap:8px;margin-top:8px">
+          <div style="border-left:3px solid var(--qonto-mint-1000);padding-left:12px">
+            <strong>Boost Individual</strong>
+            <p class="small muted">Mathieu, Emma — biggest moves, biggest skill-matrix jumps.</p>
+          </div>
+          <div style="border-left:3px solid var(--qonto-blueberry-1000);padding-left:12px">
+            <strong>Catalyze Collective</strong>
+            <p class="small muted">Lila override reflects two andon pulls that unblocked the squad.</p>
+          </div>
+          <div style="border-left:3px solid var(--qonto-plum-1000);padding-left:12px">
+            <strong>Build the Team</strong>
+            <p class="small muted">Noor's retention-level move signals "we see you" in the first year.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
