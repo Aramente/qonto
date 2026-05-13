@@ -219,7 +219,7 @@
     },
     {
       "id": "calibration-box-view",
-      "name": "3×3 calibration box view (Lattice-style)",
+      "name": "3×3 calibration box view",
       "description": "Avatars on a configurable 2-axis grid. Drag to move; every move requires a one-line reason. Live updates for everyone in the meeting.",
       "primary_user": "manager",
       "surface": "calibration",
@@ -313,7 +313,7 @@
     {
       "id": "comp-worksheet-position-in-band",
       "name": "Position-in-band on every row",
-      "description": "Each Qontoer's row shows a horizontal band (min / mid / max) with current salary marker + proposed-move arrow. The signature Figures pattern, anchored on the salary grid.",
+      "description": "Each Qontoer's row shows a horizontal band (min / mid / max) with current salary marker + proposed-move arrow. The salary grid is always the anchor.",
       "primary_user": "manager",
       "surface": "comp-planning",
       "help_mode": "manager-does-job",
@@ -554,7 +554,7 @@
     {
       "id": "cycle-admin-3-step-wizard",
       "name": "3-step campaign launch (population → form → planning)",
-      "description": "Launch a Progress Review or comp window in three steps with a sandbox preview. Matches the vocabulary Qonto's RH team uses with Lucca.",
+      "description": "Launch a Progress Review or comp window in three steps with a sandbox preview. Vocabulary mirrors what Qonto's RH team already uses day-to-day.",
       "primary_user": "hr",
       "surface": "cycle-admin",
       "help_mode": "hr-sees-patterns",
@@ -1438,7 +1438,7 @@
     {
       "id": "track-switch-wizard",
       "name": "IC ↔ Manager track-switch wizard",
-      "description": "Show level equivalence when moving IC→Manager or Backend→Platform — Square's L6=L6 pattern.",
+      "description": "Show level equivalence when moving IC → Manager or Backend → Platform. Same level ordinal across tracks, so promotion conversations stay coherent.",
       "primary_user": "employee",
       "surface": "career-framework",
       "help_mode": "employee-makes-case",
@@ -1454,7 +1454,7 @@
     {
       "id": "salary-band-reveal",
       "name": "My salary band reveal",
-      "description": "Buffer-style transparency: see the band for your current level + location, and the band for the next level if you promote. Mid-band + percentile visible.",
+      "description": "Pay-transparency-style view of the band for your current level + location, plus the band for the next level if you promote. Mid-band + percentile visible.",
       "primary_user": "employee",
       "surface": "pay-transparency",
       "help_mode": "employee-makes-case",
@@ -1894,7 +1894,7 @@
     {
       "id": "polymorphic-rating-row",
       "name": "Polymorphic rating row",
-      "description": "One row shape (criteria + weight + rating value) reused as template (no value), self-ratings, and peer/manager ratings. Frappe's one-table-three-uses pattern.",
+      "description": "One row shape (criteria + weight + rating value) reused as template (no value), self-ratings, and peer/manager ratings. One table, four contexts, zero duplication.",
       "primary_user": "hr",
       "surface": "cross-cutting",
       "help_mode": "hr-sees-patterns",
@@ -2015,7 +2015,7 @@
     {
       "id": "final-score-aggregation",
       "name": "Final score aggregation",
-      "description": "Read-only aggregate of goal + self + feedback weighted per cycle config. The Frappe `final_score_formula` pattern.",
+      "description": "Read-only aggregate of goal + self + feedback weighted per cycle config. The cycle row owns the weighting formula — every appraisal inherits.",
       "primary_user": "hr",
       "surface": "cycle-admin",
       "help_mode": "hr-sees-patterns",
@@ -2213,7 +2213,7 @@
     },
     {
       "id": "cf-theme-as-entity",
-      "name": "Themes (Lattice-style grouping)",
+      "name": "Themes as a first-class grouping",
       "description": "Group competencies under themes (Impact / Behaviors / Functional). Theme is a first-class entity, not a label.",
       "primary_user": "hr",
       "surface": "career-framework",
@@ -2229,7 +2229,7 @@
     {
       "id": "cf-job-family",
       "name": "Job family separate from track",
-      "description": "Backend / Frontend / Infra (job families) reuse IC + Mgr tracks — GitLab pattern. No ladder duplication per role.",
+      "description": "Backend / Frontend / Infra (job families) reuse the same IC + Manager tracks. One ladder, many roles, no duplication.",
       "primary_user": "hr",
       "surface": "career-framework",
       "help_mode": "hr-sees-patterns",
