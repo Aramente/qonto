@@ -89,6 +89,17 @@ p  { margin: 0; }
 a  { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; }
 
+/* Role-aware visibility (managed by role.js). Each section declares the
+   minimum role required; lower roles hide them. */
+body[data-role="employee"] [data-role-min="manager"],
+body[data-role="employee"] [data-role-min="hr"],
+body[data-role="employee"] [data-role-min="founder"],
+body[data-role="manager"]  [data-role-min="hr"],
+body[data-role="manager"]  [data-role-min="founder"],
+body[data-role="hr"]       [data-role-min="founder"] {
+  display: none !important;
+}
+
 .muted { color: var(--qonto-grey-600); }
 .tiny { font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 600; color: var(--qonto-grey-500); }
 .small { font-size: 13px; }

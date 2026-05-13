@@ -7,19 +7,20 @@
 <meta name="googlebot" content="noindex, nofollow, noarchive" />
 <title>Qonto · Manager review · Mathieu D.</title>
 <link rel="stylesheet" href="../assets/qonto.css" />
+<script src="../assets/role.js" defer></script>
 </head>
 <body>
 <div class="shell">
   <aside class="sidebar">
     <a href="../index.html" class="brand"><span class="brand-mark">Q</span> Qonto</a>
-    <div>
+    <div data-role-min="employee">
       <div class="nav-group-label">Mine</div>
       <nav class="nav">
         <a href="./dashboard.html"><span class="icon">●</span>Home</a>
         <a href="./perf-self-review.html"><span class="icon">◐</span>My review</a>
       </nav>
     </div>
-    <div>
+    <div data-role-min="manager">
       <div class="nav-group-label">My team</div>
       <nav class="nav">
         <a href="./perf-team.html" class="active"><span class="icon">▤</span>Team reviews</a>
@@ -27,11 +28,20 @@
         <a href="./comp-team.html"><span class="icon">€</span>Comp planning</a>
       </nav>
     </div>
-    <div>
+    <div data-role-min="hr">
       <div class="nav-group-label">Admin</div>
       <nav class="nav">
         <a href="./admin-cycles.html"><span class="icon">⊟</span>Cycles</a>
         <a href="./admin-insights.html"><span class="icon">∿</span>Insights</a>
+      </nav>
+    </div>
+      <div data-role-min="founder">
+      <div class="nav-group-label">Leadership</div>
+      <nav class="nav">
+        <a href="./admin-insights.html"><span class="icon">∿</span>Org pulse</a>
+        <a href="./admin-cycles.html"><span class="icon">⊟</span>All cycles</a>
+        <a href="#"><span class="icon">◆</span>Three-pillar roll-up</a>
+        <a href="#"><span class="icon">€</span>Comp committee</a>
       </nav>
     </div>
   </aside>
@@ -40,10 +50,10 @@
     <div class="topbar">
       <div class="crumbs"><a href="./dashboard.html">Home</a> · <a href="./perf-team.html">Team reviews</a> · <strong>Mathieu Delcourt · L5</strong></div>
       <div class="role-switch">
-        <a href="./dashboard.html">Employee</a>
-        <a href="#" class="active">Manager</a>
-        <a href="./admin-cycles.html">People team</a>
-        <a href="./board-founder.html">Founder</a>
+        <a href="#" data-role="employee">Employee</a>
+        <a href="#" data-role="manager">Manager</a>
+        <a href="#" data-role="hr">People team</a>
+        <a href="#" data-role="founder">Founder</a>
       </div>
     </div>
 
