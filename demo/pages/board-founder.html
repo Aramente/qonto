@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Qonto · Founder view</title>
+<link rel="stylesheet" href="../assets/qonto.css" />
+<style>
+  /* Andon strip — red/amber items only, founder-routed */
+  .andon-strip { display:grid; grid-template-columns:repeat(3, 1fr); gap:var(--qs-3); }
+  .andon { padding:16px; border-radius:var(--qr-md); border-left:4px solid; background:var(--qonto-white); border:1px solid var(--qonto-grey-200); position:relative; }
+  .andon.red    { border-left-color:var(--qonto-red-1000);    background:linear-gradient(180deg,#fff2f2 0%,#fff 60%); }
+  .andon.amber  { border-left-color:var(--qonto-peach-1000);  background:linear-gradient(180deg,#fff5ec 0%,#fff 60%); }
+  .andon .tag   { font-size:11px; letter-spacing:0.05em; text-transform:uppercase; font-weight:600; }
+  .andon.red   .tag { color:var(--qonto-red-1000); }
+  .andon.amber .tag { color:var(--qonto-peach-1000); }
+  .andon h4 { margin:6px 0 4px; font-size:16px; }
+  .andon p  { font-size:13px; color:var(--qonto-grey-700); margin-bottom:10px; }
+  .andon .next { font-size:12px; color:var(--qonto-grey-600); margin-bottom:6px; }
+  .andon .next strong { color:var(--qonto-black); }
+
+  /* Hoshin cascade — North Star → Pillar → Spend share */
+  .cascade { display:grid; grid-template-columns:160px 1fr 80px; gap:8px 12px; align-items:center; }
+  .cascade .ns { font-weight:600; font-size:13px; }
+  .cascade .ns .small { color:var(--qonto-grey-500); font-weight:400; display:block; }
+  .cascade .bar { height:18px; background:var(--qonto-grey-100); border-radius:4px; overflow:hidden; position:relative; }
+  .cascade .bar > div { height:100%; border-radius:4px; }
+  .cascade .bar .target { position:absolute; top:-2px; bottom:-2px; width:2px; background:var(--qonto-black); }
+  .cascade .pct { font-size:13px; font-weight:600; text-align:right; }
+  .cascade .pct .small { color:var(--qonto-grey-500); font-weight:400; font-size:11px; }
+
+  /* Value stream — cycle stages */
+  .vsm { display:flex; align-items:stretch; gap:6px; overflow:hidden; }
+  .vsm .stage { flex:1; padding:10px 8px; border-radius:var(--qr-sm); background:var(--qonto-grey-50); border:1px solid var(--qonto-grey-200); position:relative; }
+  .vsm .stage.bottleneck { background:var(--qonto-peach-50); border-color:var(--qonto-peach-1000); }
+  .vsm .stage .name { font-size:11px; letter-spacing:0.05em; text-transform:uppercase; font-weight:600; color:var(--qonto-grey-700); }
+  .vsm .stage .wip  { font-size:22px; font-weight:600; letter-spacing:-0.02em; margin-top:4px; }
+  .vsm .stage .lt   { font-size:11px; color:var(--qonto-grey-600); }
+  .vsm .arrow { align-self:center; color:var(--qonto-grey-400); font-size:14px; }
+
+  /* Heijunka — talent flow leveling */
+  .heij { display:grid; grid-template-columns:120px repeat(6, 1fr) 60px; gap:4px; font-size:12px; align-items:center; }
+  .heij .h { font-size:10px; letter-spacing:0.05em; text-transform:uppercase; color:var(--qonto-grey-600); text-align:center; padding-bottom:4px; }
+  .heij .row-head { font-weight:600; padding:6px 4px; }
+  .heij .cell { padding:6px 4px; text-align:center; border-radius:var(--qr-sm); background:var(--qonto-grey-50); font-weight:600; }
+  .heij .cell.lumpy { background:var(--qonto-mustard-50); color:var(--qonto-mustard-1000); }
+  .heij .var { font-size:11px; color:var(--qonto-grey-600); text-align:right; padding-right:4px; }
+  .heij .var.flag { color:var(--qonto-peach-1000); font-weight:600; }
+
+  /* Kaizen log */
+  .kaizen-row { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--qonto-grey-100); align-items:flex-start; }
+  .kaizen-row:last-child { border-bottom:none; }
+  .kaizen-row .who { width:140px; flex-shrink:0; font-size:13px; }
+  .kaizen-row .who .small { color:var(--qonto-grey-500); font-size:11px; display:block; }
+  .kaizen-row .what { flex:1; font-size:13px; color:var(--qonto-grey-800); }
+  .kaizen-row .impact { font-size:11px; color:var(--qonto-grey-600); margin-top:2px; }
+
+  /* Genchi cards */
+  .genchi { display:grid; grid-template-columns:repeat(3, 1fr); gap:var(--qs-3); }
+  .genchi .g-card { padding:14px; border:1px solid var(--qonto-grey-200); border-radius:var(--qr-md); background:var(--qonto-white); }
+  .genchi .g-card .who { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+  .genchi .g-card .quote { font-size:13px; color:var(--qonto-grey-800); font-style:italic; line-height:1.5; }
+  .genchi .g-card .ctx { font-size:11px; color:var(--qonto-grey-500); margin-top:6px; }
+
+  /* Headline */
+  .headline { display:flex; align-items:baseline; gap:24px; flex-wrap:wrap; }
+  .headline .num { font-size:48px; font-weight:600; letter-spacing:-0.03em; line-height:1; }
+  .headline .lbl { font-size:13px; color:var(--qonto-grey-600); }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <a href="../index.html" class="brand"><span class="brand-mark">Q</span> Qonto</a>
+
+    <div>
+      <div class="nav-group-label">Founder</div>
+      <nav class="nav">
+        <a href="./board-founder.html" class="active"><span class="icon">●</span>Cycle overview</a>
+        <a href="#"><span class="icon">∿</span>North Star alignment</a>
+        <a href="#"><span class="icon">€</span>Envelope &amp; runway</a>
+        <a href="#"><span class="icon">▤</span>Manager scorecards</a>
+        <a href="#"><span class="icon">⊟</span>Board pack export</a>
+      </nav>
+    </div>
+
+    <div>
+      <div class="nav-group-label">Drill into</div>
+      <nav class="nav">
+        <a href="./admin-insights.html"><span class="icon">∿</span>People team</a>
+        <a href="./perf-team.html"><span class="icon">▤</span>Manager view</a>
+        <a href="./dashboard.html"><span class="icon">◐</span>Employee view</a>
+      </nav>
+    </div>
+
+    <div style="margin-top:auto;border-top:1px solid #1a1a1a;padding-top:16px">
+      <div class="row">
+        <div class="avatar" style="background:var(--qonto-blueberry-50);color:var(--qonto-blueberry-1000)">SA</div>
+        <div>
+          <div style="font-weight:600;font-size:13px">Steve A.</div>
+          <div style="font-size:11px;color:var(--qonto-grey-500)">Co-founder &amp; co-CEO</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="crumbs"><strong>Founder · H1 2026</strong> · day 38 of 42</div>
+      <div class="role-switch">
+        <a href="./dashboard.html">Employee</a>
+        <a href="./perf-team.html">Manager</a>
+        <a href="./admin-insights.html">People team</a>
+        <a href="#" class="active">Founder</a>
+      </div>
+    </div>
+
+    <!-- Single-line headline. No thinking required. -->
+    <div class="headline">
+      <div>
+        <div class="num">3</div>
+        <div class="lbl">need a call from you</div>
+      </div>
+      <div>
+        <div class="num" style="color:var(--qonto-mint-1000)">€0</div>
+        <div class="lbl">left to allocate · envelope clean</div>
+      </div>
+      <div>
+        <div class="num">94%</div>
+        <div class="lbl">calibrated · lock Friday 17:00</div>
+      </div>
+      <div style="margin-left:auto;text-align:right">
+        <a href="#" class="btn primary">Open the 3 →</a>
+        <div class="small muted" style="margin-top:6px">~12 min total</div>
+      </div>
+    </div>
+
+    <!-- ANDON: stop-the-line items routed to the founder -->
+    <div>
+      <div class="row" style="margin-bottom:10px">
+        <div>
+          <h2 style="margin-bottom:2px">Andon · what stopped the line</h2>
+          <p class="small muted">Only items that need a founder decision land here. Everything else is handled below.</p>
+        </div>
+      </div>
+
+      <div class="andon-strip">
+        <div class="andon red">
+          <span class="tag">Pay equity · L6</span>
+          <h4>+2.8% unexplained gap at L6, women.</h4>
+          <p>Above the 2% intervention threshold. 3 of 14 L6 Qontoers identify as women — small sample, real signal. Sandbox correction: €4,200 from the unallocated envelope. Already approved by the Comp Committee.</p>
+          <div class="next">Next step · <strong>You sign off, or you ask Magali to redo the math.</strong></div>
+          <div class="row">
+            <button class="btn sm primary">Approve correction</button>
+            <a href="./admin-insights.html" class="btn sm secondary">See the math</a>
+          </div>
+        </div>
+
+        <div class="andon red">
+          <span class="tag">Retention risk · key engineer</span>
+          <h4>Yassine R. has no path this cycle. Recruiter ping on Monday.</h4>
+          <p>Staff-level, owns the auth rewrite. Calibrated mid-high three cycles running. His manager flagged a competing offer this morning. Promotion to L6 fits the band; €11k bump, ESOP refresh.</p>
+          <div class="next">Next step · <strong>30-min with Yassine before Wednesday, or the offer wins.</strong></div>
+          <div class="row">
+            <button class="btn sm primary">Block 30 min</button>
+            <a href="#" class="btn sm secondary">Read his cycle</a>
+          </div>
+        </div>
+
+        <div class="andon amber">
+          <span class="tag">Calibration · Cards squad</span>
+          <h4>Three managers running +1 tier high. No cross-cal scheduled.</h4>
+          <p>Camille, Hadi, Lou haven't compared notes this cycle. Previous cycle was -0.5 lenient; this one flipped to +1.0 strict — same pattern, opposite sign. Locks Friday.</p>
+          <div class="next">Next step · <strong>People team will run the cross-cal Thursday 14:00. You don't need to attend; you'll get the diff Friday morning.</strong></div>
+          <div class="row">
+            <button class="btn sm secondary">Acknowledge</button>
+            <a href="./perf-calibration.html" class="btn sm ghost">Open calibration →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPIs the founder actually decides on -->
+    <div class="grid cols-4">
+      <div class="card kpi">
+        <span class="label">Envelope</span>
+        <span class="value">€2.41M</span>
+        <span class="small muted">Of €2.42M target · 99.6% allocated</span>
+      </div>
+      <div class="card kpi">
+        <span class="label">Promotions tied to North Star</span>
+        <span class="value">112<span style="font-size:18px;color:var(--qonto-grey-500)">/147</span></span>
+        <span class="small muted">76% on the three H1 priorities · target 70%</span>
+      </div>
+      <div class="card kpi">
+        <span class="label">Regret-risk Qontoers</span>
+        <span class="value" style="color:var(--qonto-peach-1000)">7</span>
+        <span class="small muted">High performers · no promo · 1 already routed to you</span>
+      </div>
+      <div class="card kpi">
+        <span class="label">Pay-equity (unexplained)</span>
+        <span class="value">-0.2%</span>
+        <span class="small muted">Within EU PT tolerance · 1 L6 alert open</span>
+      </div>
+    </div>
+
+    <!-- Hoshin + Value Stream -->
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>North Star alignment · where the money went</h3>
+        <p class="small muted">Each row: an H1 priority. Bar = share of merit + promo spend. Black line = target share set in January.</p>
+        <div class="cascade" style="margin-top:12px">
+          <div class="ns">AI-native banking<span class="small">3 squads · 41 ICs</span></div>
+          <div class="bar"><div style="width:42%; background:var(--qonto-blueberry-1000)"></div><div class="target" style="left:38%"></div></div>
+          <div class="pct">42%<span class="small">target 38%</span></div>
+
+          <div class="ns">EU expansion<span class="small">DE / IT / PT · 28 ICs</span></div>
+          <div class="bar"><div style="width:24%; background:var(--qonto-mint-1000)"></div><div class="target" style="left:25%"></div></div>
+          <div class="pct">24%<span class="small">target 25%</span></div>
+
+          <div class="ns">Reliability &amp; safety<span class="small">SRE · Compliance · 19 ICs</span></div>
+          <div class="bar"><div style="width:18%; background:var(--qonto-plum-1000)"></div><div class="target" style="left:20%"></div></div>
+          <div class="pct">18%<span class="small">target 20%</span></div>
+
+          <div class="ns">Run-the-business<span class="small">Everything else · 312 ICs</span></div>
+          <div class="bar"><div style="width:16%; background:var(--qonto-grey-500)"></div><div class="target" style="left:17%"></div></div>
+          <div class="pct">16%<span class="small">target 17%</span></div>
+        </div>
+        <p class="small muted" style="margin-top:14px">Read this as <em>hoshin kanri</em>: the strategy decided in January is showing up in the comp decisions made in May. AI-native runs 4 points hot — that's intentional, you set it that way after the Mistral deal.</p>
+      </div>
+
+      <div class="card">
+        <h3>Value stream · the H1 cycle, end to end</h3>
+        <p class="small muted">Each box: a stage. Number = Qontoers currently in that stage. Lead time = average days spent. Peach = bottleneck.</p>
+        <div class="vsm" style="margin-top:12px">
+          <div class="stage"><div class="name">Self-review</div><div class="wip">0</div><div class="lt">5.2 days avg</div></div>
+          <div class="arrow">→</div>
+          <div class="stage"><div class="name">Peer feedback</div><div class="wip">12</div><div class="lt">3.8 days avg</div></div>
+          <div class="arrow">→</div>
+          <div class="stage bottleneck"><div class="name">Manager write</div><div class="wip">84</div><div class="lt">9.1 days · target 6</div></div>
+          <div class="arrow">→</div>
+          <div class="stage"><div class="name">Calibration</div><div class="wip">23</div><div class="lt">2.4 days avg</div></div>
+          <div class="arrow">→</div>
+          <div class="stage"><div class="name">Comp letter</div><div class="wip">31</div><div class="lt">1.1 days avg</div></div>
+          <div class="arrow">→</div>
+          <div class="stage"><div class="name">Signed</div><div class="wip">1,362</div><div class="lt">—</div></div>
+        </div>
+        <div class="ai-callout" style="margin-top:14px">
+          <span class="ai-label">Where the waste is</span>
+          <p class="small"><strong>Manager write</strong> runs 9.1 days against a 6-day target — 84 Qontoers parked there. Drafting from scratch is the bottleneck; the AI draft-from-evidence step is opt-in this cycle. People team is making it default next cycle. <strong>You don't need to do anything;</strong> noting so the next board pack shows the fix.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Kaizen log + Heijunka -->
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Kaizen log · what managers improved this cycle</h3>
+        <p class="small muted">Small fixes managers shipped without asking. The point is to see the practice, not to track the items.</p>
+        <div style="margin-top:8px">
+          <div class="kaizen-row">
+            <div class="who">Sophie D. <span class="small">Payments</span></div>
+            <div class="what">Replaced the squad standup with a 10-min visual-management board check. Avg meeting load down 2.5h / week / IC.
+              <div class="impact">Cycle 6 → 5 improvement · adopted by 2 other squads</div>
+            </div>
+          </div>
+          <div class="kaizen-row">
+            <div class="who">Hadi K. <span class="small">Cards</span></div>
+            <div class="what">Moved peer-feedback into the pull-request review thread instead of a separate form. Peer-feedback completion: 64% → 91%.
+              <div class="impact">Worth keeping · ping People team to template it</div>
+            </div>
+          </div>
+          <div class="kaizen-row">
+            <div class="who">Aïcha M. <span class="small">SRE</span></div>
+            <div class="what">Pulled the post-mortem doc into the review evidence pane. ICs no longer write incident summaries twice.
+              <div class="impact">~3h / IC / cycle saved across SRE (11 people)</div>
+            </div>
+          </div>
+          <div class="kaizen-row">
+            <div class="who">Tarek B. <span class="small">Compliance</span></div>
+            <div class="what">Built a one-page skill-matrix view per IC, in Notion, that mirrors the band rubric exactly.
+              <div class="impact">Five other managers asked for the template · move to standard?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Talent flow · is it level?</h3>
+        <p class="small muted"><em>Heijunka</em> read: hire, promote, exit by BU. Flag = high variance vs the company average (lumpy flow).</p>
+        <div class="heij" style="margin-top:12px">
+          <div></div>
+          <div class="h">Eng</div><div class="h">Product</div><div class="h">Sales</div><div class="h">Ops</div><div class="h">G&amp;A</div><div class="h">Marketing</div>
+          <div></div>
+
+          <div class="row-head">Hired (H1)</div>
+          <div class="cell">38</div><div class="cell">12</div><div class="cell">22</div><div class="cell">14</div><div class="cell">6</div><div class="cell">9</div>
+          <div class="var">σ 11.2</div>
+
+          <div class="row-head">Promoted</div>
+          <div class="cell">61</div><div class="cell">19</div><div class="cell lumpy">8</div><div class="cell">22</div><div class="cell">11</div><div class="cell">14</div>
+          <div class="var flag">σ 18.4 · lumpy</div>
+
+          <div class="row-head">Voluntary exit</div>
+          <div class="cell">9</div><div class="cell">3</div><div class="cell lumpy">14</div><div class="cell">5</div><div class="cell">2</div><div class="cell">4</div>
+          <div class="var flag">σ 4.5 · Sales spike</div>
+
+          <div class="row-head">Net flow</div>
+          <div class="cell">+29</div><div class="cell">+9</div><div class="cell">+8</div><div class="cell">+9</div><div class="cell">+4</div><div class="cell">+5</div>
+          <div class="var">σ 9.8</div>
+        </div>
+        <div class="ai-callout" style="margin-top:14px;background:linear-gradient(180deg,#fff5ec 0%,#fff 100%);border-color:var(--qonto-peach-50)">
+          <span class="ai-label" style="color:var(--qonto-peach-1000)">Sales is uneven</span>
+          <p class="small">14 voluntary exits, only 8 promotions. The two numbers correlate cycle-over-cycle. Sales leadership has a meeting Tuesday — the band review is on their agenda. You don't need to redirect; just know it's the second cycle running.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Genchi Genbutsu: go and see -->
+    <div class="card">
+      <div class="row">
+        <div>
+          <h3 style="margin-bottom:2px">Go and see · three Qontoers worth one click</h3>
+          <p class="small muted">Real quotes from this cycle's self-reviews and peer feedback. Pick one before the board call Friday.</p>
+        </div>
+        <a href="#" class="btn secondary right">More from this cycle</a>
+      </div>
+
+      <div class="genchi" style="margin-top:14px">
+        <div class="g-card">
+          <div class="who">
+            <div class="avatar sm" style="background:var(--qonto-mint-50);color:var(--qonto-mint-1000)">YR</div>
+            <div>
+              <div style="font-weight:600;font-size:13px">Yassine R.</div>
+              <div class="small muted">Staff Engineer · Auth · L5 → L6 pending</div>
+            </div>
+          </div>
+          <p class="quote">"The thing I built this cycle wasn't a feature, it was the muscle for the team to build the next four. If that's not what Staff means here, tell me what is."</p>
+          <p class="ctx">Source · self-review, May 8 · the engineer the recruiter ping is about</p>
+        </div>
+
+        <div class="g-card">
+          <div class="who">
+            <div class="avatar sm" style="background:var(--qonto-sakura-50);color:var(--qonto-sakura-1000)">MN</div>
+            <div>
+              <div style="font-weight:600;font-size:13px">Marta N.</div>
+              <div class="small muted">Product Manager · Berlin · L4</div>
+            </div>
+          </div>
+          <p class="quote">"The pull-system between Product and Tech only works when both sides hold the limit. We held it this cycle. Last cycle we didn't. The difference is visible in the launch dates."</p>
+          <p class="ctx">Source · peer feedback for Hadi K., May 5</p>
+        </div>
+
+        <div class="g-card">
+          <div class="who">
+            <div class="avatar sm" style="background:var(--qonto-plum-50);color:var(--qonto-plum-1000)">LV</div>
+            <div>
+              <div style="font-weight:600;font-size:13px">Lou V.</div>
+              <div class="small muted">Engineering Manager · Cards · L5</div>
+            </div>
+          </div>
+          <p class="quote">"I scored my team strict this cycle because I want the bar to mean something. I'm aware that's misaligned with Camille and Hadi. The cross-cal Thursday is the right venue, not the andon."</p>
+          <p class="ctx">Source · calibration comment, May 12 · same manager from the amber andon above</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="padding-top:12px;border-top:1px solid var(--qonto-grey-100);color:var(--qonto-grey-500);font-size:12px">
+      <div>Lock window opens Friday 17:00 CET. After lock, this view becomes the H1 2026 board pack — one PDF, same layout.</div>
+      <div class="right row">
+        <a href="#" class="btn sm secondary">Preview board pack</a>
+        <a href="#" class="btn sm primary">Schedule the 3 calls</a>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
