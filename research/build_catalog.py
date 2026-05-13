@@ -252,15 +252,15 @@ rejected_json = json.dumps(data["rejected"], ensure_ascii=False)
 # Replace whatever currently follows the placeholder marker with the new payload.
 import re
 html = re.sub(
-    r"window\.FEATURES = /\*__FEATURES_PLACEHOLDER__\*/.*?;",
-    f"window.FEATURES = /*__FEATURES_PLACEHOLDER__*/{features_json};",
+    r"/\*__FEATURES_START__\*/.*?/\*__FEATURES_END__\*/",
+    f"/*__FEATURES_START__*/{features_json}/*__FEATURES_END__*/",
     html,
     count=1,
     flags=re.DOTALL,
 )
 html = re.sub(
-    r"window\.REJECTED = /\*__REJECTED_PLACEHOLDER__\*/.*?;",
-    f"window.REJECTED = /*__REJECTED_PLACEHOLDER__*/{rejected_json};",
+    r"/\*__REJECTED_START__\*/.*?/\*__REJECTED_END__\*/",
+    f"/*__REJECTED_START__*/{rejected_json}/*__REJECTED_END__*/",
     html,
     count=1,
     flags=re.DOTALL,
