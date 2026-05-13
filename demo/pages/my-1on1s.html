@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="robots" content="noindex, nofollow, noarchive" />
+<meta name="googlebot" content="noindex, nofollow, noarchive" />
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+<title>Qonto · My 1:1s</title>
+<link rel="stylesheet" href="../assets/qonto.css" />
+<script src="../assets/role.js" defer></script>
+<style>
+  .session { display:grid; grid-template-columns:120px 1fr; gap:16px; padding:16px 0; border-top:1px solid var(--qonto-grey-100); }
+  .session:first-child { border-top:0; }
+  .session .when { font-size:13px; color:var(--qonto-grey-700); font-weight:600; }
+  .session .when .day { font-size:11px; color:var(--qonto-grey-500); font-weight:400; display:block; }
+  .session .what { display:flex; flex-direction:column; gap:6px; }
+  .checkbox { width:14px; height:14px; border:1.5px solid var(--qonto-grey-400); border-radius:3px; display:inline-block; vertical-align:middle; margin-right:6px; flex-shrink:0; }
+  .checkbox.done { background:var(--qonto-mint-1000); border-color:var(--qonto-mint-1000); position:relative; }
+  .checkbox.done::after { content:""; position:absolute; top:1px; left:4px; width:3px; height:7px; border:solid #fff; border-width:0 2px 2px 0; transform:rotate(45deg); }
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <a href="../index.html" class="brand"><span class="brand-mark">Q</span> Qonto</a>
+    <div data-role-min="employee">
+      <div class="nav-group-label">Mine</div>
+      <nav class="nav">
+        <a href="./dashboard.html"><span class="icon">●</span>Home</a>
+        <a href="./perf-self-review.html"><span class="icon">◐</span>My review</a>
+        <a href="./my-goals.html"><span class="icon">◇</span>My goals</a>
+        <a href="./my-compensation.html"><span class="icon">€</span>My compensation</a>
+        <a href="./my-1on1s.html" class="active"><span class="icon">↗</span>My 1:1s</a>
+      </nav>
+    </div>
+    <div data-role-min="manager">
+      <div class="nav-group-label">My team</div>
+      <nav class="nav">
+        <a href="./perf-team.html"><span class="icon">▤</span>Team reviews</a>
+        <a href="./perf-calibration.html"><span class="icon">▣</span>Calibration</a>
+        <a href="./comp-team.html"><span class="icon">€</span>Comp planning</a>
+      </nav>
+    </div>
+    <div data-role-min="hr">
+      <div class="nav-group-label">Admin</div>
+      <nav class="nav">
+        <a href="./admin-cycles.html"><span class="icon">⊟</span>Cycles</a>
+        <a href="./admin-insights.html"><span class="icon">∿</span>Insights</a>
+      </nav>
+    </div>
+    <div data-role-min="founder">
+      <div class="nav-group-label">Leadership</div>
+      <nav class="nav">
+        <a href="./board-founder.html"><span class="icon">●</span>Founder home</a>
+        <a href="./admin-insights.html"><span class="icon">∿</span>Org pulse</a>
+      </nav>
+    </div>
+    <div style="margin-top:auto;border-top:1px solid #1a1a1a;padding-top:16px" data-role-profile></div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="crumbs"><a href="./dashboard.html">Home</a> · <strong>My 1:1s · with Mathieu D.</strong></div>
+      <div class="role-switch">
+        <a href="#" data-role="employee">Employee</a>
+        <a href="#" data-role="manager">Manager</a>
+        <a href="#" data-role="hr">People team</a>
+        <a href="#" data-role="founder">Founder</a>
+      </div>
+    </div>
+
+    <div class="row" style="gap:24px">
+      <div>
+        <h1>My 1:1s</h1>
+        <p class="muted">With Mathieu D. · weekly · 26 sessions logged · 4 unresolved action items</p>
+      </div>
+      <div class="right row">
+        <button class="btn secondary">✦ Career-conversation recall</button>
+        <button class="btn primary">+ Next agenda</button>
+      </div>
+    </div>
+
+    <div class="grid" style="grid-template-columns:1fr 340px;gap:24px;align-items:flex-start">
+      <!-- Next 1:1 -->
+      <div class="col" style="gap:20px">
+        <div class="card">
+          <div class="card-header">
+            <h2>Next 1:1 · Thursday May 16, 10:00</h2>
+            <span class="right pill blueberry">In 3 days</span>
+          </div>
+
+          <label>What you want to talk about</label>
+          <textarea placeholder="Add a topic, or pull from prep card below…">— Walk through the H1 self-review draft (Mathieu hasn't seen it yet)
+— Open: legal-review timing across squads — the andon I pulled May 6
+— Idea: H2 goal around platform-team partnership</textarea>
+
+          <div class="ai-callout">
+            <span class="ai-label">From the prep card · since last 1:1</span>
+            <ul class="small" style="margin:0;padding-left:18px">
+              <li>You closed 1 goal (card-replacement flow → launched April 9, +12%)</li>
+              <li>You received 2 kudos (Lila R., Pierre T.) — neither cited yet in your draft</li>
+              <li><strong>Unresolved from last session:</strong> "decide H2 platform allocation" — Mathieu owed an answer by today</li>
+            </ul>
+            <div class="ai-actions">
+              <button class="btn sm primary">Pull all into agenda</button>
+              <button class="btn sm secondary">Show sources</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- History -->
+        <div class="card">
+          <h2>Recent sessions</h2>
+          <p class="small muted">Notes Mathieu chose to share with you · your private notes stay private.</p>
+
+          <div style="margin-top:8px">
+            <!-- Session -->
+            <div class="session">
+              <div class="when">May 9, 2026<span class="day">Thursday · 30 min</span></div>
+              <div class="what">
+                <div class="small"><strong>Discussed</strong> · card-replacement launch retrospective · platform-team partnership idea</div>
+                <div class="small"><strong>Shared follow-ups</strong></div>
+                <div class="small"><span class="checkbox done"></span>You: send retro doc to Risk + Compliance</div>
+                <div class="small"><span class="checkbox done"></span>Mathieu: introduce you to Sophie (Platform lead)</div>
+                <div class="small"><span class="checkbox"></span>Mathieu: bring the H2 platform allocation decision</div>
+              </div>
+            </div>
+
+            <div class="session">
+              <div class="when">May 2, 2026<span class="day">Thursday · 45 min</span></div>
+              <div class="what">
+                <div class="small"><strong>Discussed</strong> · H1 review-cycle kickoff · which peers to ask for feedback · IDP for H2</div>
+                <div class="small"><strong>Shared follow-ups</strong></div>
+                <div class="small"><span class="checkbox done"></span>You: send peer-feedback requests to 5 people by Friday</div>
+                <div class="small"><span class="checkbox done"></span>Mathieu: read your self-review draft before May 20</div>
+                <div class="small"><span class="checkbox"></span>You: draft IDP themes — coaching + system-design</div>
+              </div>
+            </div>
+
+            <div class="session">
+              <div class="when">Apr 25, 2026<span class="day">Thursday · 30 min</span></div>
+              <div class="what">
+                <div class="small"><strong>Discussed</strong> · BIN-capacity andon (you pulled it Mar 14) — full debrief now that it's resolved</div>
+                <div class="small"><strong>Shared follow-ups</strong></div>
+                <div class="small"><span class="checkbox done"></span>You: write the capacity-plan doc · Mathieu reads it</div>
+              </div>
+            </div>
+
+            <div class="session" style="opacity:0.7">
+              <div class="when">Apr 18, 2026<span class="day">Thursday · 30 min</span></div>
+              <div class="what">
+                <div class="small"><strong>Discussed</strong> · onboarding-revamp scope · cross-functional alignment with Growth</div>
+                <a href="#" class="small" style="color:var(--qonto-blueberry-1000)">Expand →</a>
+              </div>
+            </div>
+
+            <a href="#" class="small" style="color:var(--qonto-blueberry-1000);margin-top:8px;display:inline-block">See all 26 sessions →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right rail -->
+      <div class="col" style="position:sticky;top:24px;gap:16px">
+        <!-- Career recall -->
+        <div class="card">
+          <div class="tiny">Career-conversation recall</div>
+          <h3 style="margin-top:4px">Search your own past 1:1s</h3>
+          <input placeholder="What did Mathieu say about presentation skills?" />
+          <p class="small muted" style="margin-top:8px">Searches notes Mathieu shared with you + your private reviews. Never your manager's private notes. Search history is not shared.</p>
+        </div>
+
+        <!-- Action items I own -->
+        <div class="card">
+          <div class="tiny">My open action items</div>
+          <h3 style="margin-top:4px">4 still on me</h3>
+          <div class="col" style="gap:6px;margin-top:8px">
+            <div class="small"><span class="checkbox"></span>Draft IDP themes — coaching + system-design <span class="tiny" style="font-weight:400;color:var(--qonto-grey-500);text-transform:none;letter-spacing:0">· from May 2</span></div>
+            <div class="small"><span class="checkbox"></span>Send retro doc to Risk + Compliance <span class="tiny" style="font-weight:400;color:var(--qonto-grey-500);text-transform:none;letter-spacing:0">· this week</span></div>
+            <div class="small"><span class="checkbox"></span>Brief Pierre on the BIN debrief <span class="tiny" style="font-weight:400;color:var(--qonto-grey-500);text-transform:none;letter-spacing:0">· no date</span></div>
+            <div class="small"><span class="checkbox"></span>Schedule intro coffee with Sophie (Platform) <span class="tiny" style="font-weight:400;color:var(--qonto-grey-500);text-transform:none;letter-spacing:0">· before May 30</span></div>
+          </div>
+        </div>
+
+        <!-- Cadence -->
+        <div class="card">
+          <div class="tiny">1:1 cadence</div>
+          <h3 style="margin-top:4px">Weekly · Thursdays 10:00</h3>
+          <div class="grid cols-3" style="gap:8px;margin-top:8px">
+            <div class="kpi"><span class="value" style="font-size:22px">26</span><span class="label">Sessions</span></div>
+            <div class="kpi"><span class="value" style="font-size:22px">100%</span><span class="label">Attended</span></div>
+            <div class="kpi"><span class="value" style="font-size:22px">12</span><span class="label">months</span></div>
+          </div>
+          <p class="small muted" style="margin-top:8px">No skipped 1:1s this year. Healthy cadence.</p>
+        </div>
+
+        <!-- Privacy reminder -->
+        <div style="background:var(--qonto-grey-100);border-radius:var(--qr-md);padding:12px 14px">
+          <div class="tiny">Privacy</div>
+          <p class="small muted" style="margin-top:4px">Your manager's private notes never appear here. You only see what Mathieu marked "share." Your own notes stay private until you decide otherwise.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
